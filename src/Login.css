@@ -18,10 +18,10 @@
 }
 
 .login__logo {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 0px;
+  margin-bottom: 0px;
   object-fit: contain;
-  width: 100px;
+  width: 150px;
   margin-right: auto;
   margin-left: auto;
 }

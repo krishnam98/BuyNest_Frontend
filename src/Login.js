@@ -108,16 +108,12 @@ function Login() {
   return (
     <div className="login">
       <Link to={"/"}>
-        <img
-          className="login__logo"
-          src="https://pngimg.com/uploads/amazon/small/amazon_PNG7.png"
-          alt="Login img"
-        />
+        <img className="login__logo" src="BuyNest Login.png" alt="Login img" />
       </Link>
       <div className="login__container">
         <h1>Sign in</h1>
         <form onSubmit={(e) => handleSubmit(e)}>
-          <h5>E-mail</h5>
+          <h5>Username</h5>
           <input type="text" ref={email} />
 
           <h5>Password</h5>
