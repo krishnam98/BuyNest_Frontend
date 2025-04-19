@@ -9,7 +9,7 @@ This is the frontend of the **BuyNest** e-commerce application built using **Rea
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/buynest-frontend.git
+git clone https://github.com/krishnam98/buynest-frontend.git
 cd buynest-frontend
 ```
 
