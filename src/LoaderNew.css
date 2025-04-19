@@ -1,0 +1,44 @@
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background-color: #f7d747;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.blinking-balls {
+  display: flex;
+  gap: 10px;
+}
+
+.ball {
+  width: 10px;
+  height: 10px;
+  background-color: #000000;
+  border-radius: 50%;
+  animation: blink 0.9s infinite ease-in-out both;
+}
+
+.ball:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.ball:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes blink {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+    opacity: 0.6;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

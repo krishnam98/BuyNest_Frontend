@@ -1,0 +1,262 @@
+/* SellerPanel.css */
+.sp_seller_panel {
+  font-family: "Segoe UI", "Roboto", Arial, sans-serif;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* Header Styles */
+.sp_seller_header {
+  background-color: #131921;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sp_title {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.sp_action_buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.sp_add_button,
+.sp_stats_button,
+.sp_orders_button,
+.sp_update_button,
+.sp_delete_button,
+.sp_cancel_button,
+.sp_submit_button,
+.sp_delete_confirm_button {
+  cursor: pointer;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.sp_add_button,
+.sp_submit_button,
+.sp_update_button {
+  background-color: #edb88b;
+  color: #fff;
+}
+
+.sp_add_button:hover,
+.sp_submit_button:hover,
+.sp_update_button:hover {
+  background-color: #d9a77a;
+}
+
+.sp_stats_button,
+.sp_orders_button {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.sp_stats_button:hover,
+.sp_orders_button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Product Management Section */
+.sp_product_management {
+  padding: 2rem;
+}
+
+.sp_section_title {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.sp_product_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+/* Product Card Styles */
+.sp_product_card {
+  border: 2px solid #edb88b;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sp_product_card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.sp_product_image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid #eee;
+}
+
+.sp_product_info {
+  padding: 1rem;
+}
+
+.sp_product_name {
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.sp_product_price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.sp_product_stock {
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.sp_product_actions {
+  display: flex;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-top: 1px solid #eee;
+}
+
+.sp_update_button,
+.sp_delete_button {
+  flex: 1;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.sp_update_button {
+  margin-right: 0.5rem;
+}
+
+.sp_delete_button,
+.sp_delete_confirm_button {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.sp_delete_button:hover,
+.sp_delete_confirm_button:hover {
+  background-color: #f5c6cb;
+}
+
+/* Modal Styles */
+.sp_modal_backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.sp_modal {
+  background-color: white;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.sp_modal_title {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.sp_modal_text {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.sp_form_group {
+  margin-bottom: 1rem;
+}
+
+.sp_form_label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.sp_form_input,
+.sp_form_textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.sp_form_textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.sp_modal_actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.sp_cancel_button {
+  background-color: #f1f2f3;
+  color: #333;
+}
+
+.sp_cancel_button:hover {
+  background-color: #e1e2e3;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sp_seller_header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .sp_product_grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .sp_action_buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .sp_action_buttons button {
+    width: 100%;
+  }
+
+  .sp_product_actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .sp_update_button,
+  .sp_delete_button {
+    margin: 0;
+  }
+}

@@ -1,0 +1,34 @@
+.cancel {
+  background-color: white;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.Cancel_msg {
+  margin: 20px;
+  padding: 20px;
+  max-width: 40%;
+  min-width: fit-content;
+  min-height: 40vh;
+  border: 5px solid #c2262f;
+  background-color: #fb7c78;
+  color: #c2262f;
+  border-radius: 15px;
+}
+
+.login__logo {
+  text-align: center;
+}
+
+button {
+  margin: 20px;
+  margin-right: 10px;
+  height: 30px;
+  width: 150px;
+  background-color: #f3a847;
+  color: black;
+  border: 2px solid #ec9421;
+  border-radius: 5px;
+  outline: none;
+}

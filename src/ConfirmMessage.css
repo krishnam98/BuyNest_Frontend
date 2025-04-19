@@ -1,0 +1,27 @@
+.confirm_msg {
+  margin: 20px;
+  padding: 20px;
+  max-width: 40%;
+  min-width: fit-content;
+  min-height: 40vh;
+  border: 5px solid #007f00;
+  background-color: #85c285;
+  color: #007f00;
+  border-radius: 15px;
+}
+
+.buttons {
+  margin: 20px;
+  margin-right: 10px;
+}
+
+.buttons > button {
+  margin-right: 10px;
+  height: 30px;
+  width: 150px;
+  background-color: #f3a847;
+  color: black;
+  border: 2px solid #ec9421;
+  border-radius: 5px;
+  outline: none;
+}

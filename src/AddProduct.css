@@ -1,0 +1,175 @@
+.addProduct_container {
+  width: 100vw;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main_heading {
+  font-size: 2rem;
+  font-weight: 500;
+  width: 100vw;
+  text-align: center;
+  background-color: #1a2432;
+  color: white;
+  padding: 10px 0px;
+  margin-bottom: 20px;
+}
+
+.form_container {
+  width: 90%;
+  display: flex;
+}
+
+.img {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img > img {
+  width: 60%;
+  height: 70%;
+}
+
+.form {
+  border: 1px solid lightslategray;
+  padding: 20px;
+  border-radius: 10px;
+  width: 40%;
+  background-color: white;
+}
+
+.pair_input {
+  display: flex;
+}
+
+.file {
+  font-size: 11px;
+}
+
+.inp {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.heading {
+  font-size: medium;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.inp > input {
+  height: 20px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  font-size: medium;
+  background-color: #eae8e8;
+}
+
+.narrow {
+  width: 100px;
+}
+
+input:focus {
+  border: 2px solid #e7a600;
+  outline: none;
+}
+
+.addproduct_btn {
+  position: relative;
+}
+
+.Description {
+  width: 80%;
+  resize: none;
+  padding: 5px 10px;
+  font-size: large;
+  background-color: #eae8e8;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+}
+
+.Description:focus {
+  border: 2px solid #e7a600;
+  outline: none;
+}
+
+.other {
+  display: flex;
+}
+
+.checkbox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 20px;
+  width: 90px;
+}
+
+.check_heading {
+  font-size: medium;
+}
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  user-select: none;
+  gap: 10px;
+  width: 100px;
+}
+
+.custom-checkbox input {
+  display: none;
+}
+
+.checkmark {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  background: #fffefe;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  position: relative;
+  border: 1px solid lightslategray;
+}
+
+.checkmark::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 3px;
+  transform: scale(0);
+  transition: transform 0.3s ease;
+}
+
+.custom-checkbox input:checked + .checkmark {
+  background: #4caf50;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.custom-checkbox input:checked + .checkmark::before {
+  transform: scale(0.9);
+}
+
+.label-text {
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.custom-checkbox input:checked ~ .label-text {
+  color: #4caf50;
+}
