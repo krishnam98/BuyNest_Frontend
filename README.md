@@ -23,12 +23,14 @@ npm install
 
 ```
 npm start
-📍 The app will be available at: http://localhost:3000
 ```
+
+📍 The app will be available at: http://localhost:3000
 
 4️⃣ 📦 **Build for Production**
 
 ```
 npm run build
-This will generate a build/ folder with an optimized production-ready build.
 ```
+
+This will generate a build/ folder with an optimized production-ready build.
