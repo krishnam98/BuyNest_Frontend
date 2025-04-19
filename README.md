@@ -13,20 +13,20 @@ git clone https://github.com/yourusername/buynest-frontend.git
 cd buynest-frontend
 ```
 
-###2️⃣ 🔧 Install Dependencies
+2️⃣ 🔧 **Install Dependencies**
 
 ```
 npm install
 ```
 
-###3️⃣ ⚙️ Start the Development Server
+3️⃣ ⚙️ **Start the Development Server**
 
 ```
 npm start
 📍 The app will be available at: http://localhost:3000
 ```
 
-###4️⃣ 📦 Build for Production
+4️⃣ 📦 **Build for Production**
 
 ```
 npm run build
