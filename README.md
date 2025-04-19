@@ -10,7 +10,7 @@ This is the frontend of the **BuyNest** e-commerce application built using **Rea
 
 ```bash
 git clone https://github.com/krishnam98/buynest_frontend.git
-cd buynest-frontend
+cd buynest_frontend
 ```
 
 2️⃣ 🔧 **Install Dependencies**
