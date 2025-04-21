@@ -5,12 +5,27 @@ import { stateContext } from "./StateProvider";
 import { useNavigate } from "react-router-dom";
 
 const Bagitem = ({ id, title, quantity, price, rating }, ref) => {
-  const { deleteItems } = useContext(stateContext);
+  const { addToCart, addItems, deleteItemFromCart, deleteItems } =
+    useContext(stateContext);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const [url, seturl] = useState("");
   const handleDelete = () => {
     deleteItems(id);
+  };
+
+  const increaseQuantity = () => {
+    // Add your increase logic here
+    console.log("Increase quantity");
+    addItems(id, title, price, rating);
+    addToCart(id);
+  };
+
+  const decreaseQuantity = () => {
+    // Add your decrease logic here
+    console.log("Decrease quantity");
+    deleteItems(id);
+    deleteItemFromCart(id, title, price, rating);
   };
 
   useEffect(() => {
@@ -64,15 +79,13 @@ const Bagitem = ({ id, title, quantity, price, rating }, ref) => {
   return (
     <div className="item">
       <div className="img__div">
-        <img className="item_img" src={url} alt="bag item" />
+        <img className="item_img_" src={url} alt="bag item" />
       </div>
       <div className="item_info">
-        <p className="item__title">{title}</p>
-        <p className="item_price">
-          <small>₹</small> <strong>{price}</strong>
-        </p>
-        <p className="item_price">
-          <small>₹</small> <strong>{quantity}</strong>
+        <p className="item__title_">{title}</p>
+        <p className="item_price_">
+          <small>₹</small>
+          {price}
         </p>
 
         <div className="item__rating">
@@ -83,9 +96,16 @@ const Bagitem = ({ id, title, quantity, price, rating }, ref) => {
             ))}
         </div>
 
-        <button className="item_button" onClick={handleDelete}>
-          <DeleteOutlineIcon />
-        </button>
+        <div className="quantity-control">
+          <p className="item__title">Qty :</p>
+          <button className="qty-btn" onClick={decreaseQuantity}>
+            -
+          </button>
+          <span className="qty-value">{quantity}</span>
+          <button className="qty-btn" onClick={increaseQuantity}>
+            +
+          </button>
+        </div>
       </div>
     </div>
   );

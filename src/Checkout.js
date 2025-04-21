@@ -10,9 +10,18 @@ import { toast } from "react-toastify";
 
 function Checkout() {
   const { getCartItems, bagItems, user } = useContext(stateContext);
+  const navigate = useNavigate();
   console.log(bagItems);
   useEffect(() => {
-    getCartItems();
+    const fetchingCartItems = async () => {
+      let val = await getCartItems();
+      console.log(val.message);
+      if (val.message == 401) {
+        navigate("/login");
+      }
+    };
+
+    fetchingCartItems();
   }, [bagItems.length]);
   return (
     <div className="checkout">

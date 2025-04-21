@@ -1,5 +1,5 @@
 import { createContext, useReducer, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const initialState = {
@@ -18,6 +18,8 @@ const initialState = {
   deleteItems: () => {},
   addUser: () => {},
   getCartItems: () => {},
+  addToCart: () => {},
+  deleteItemFromCart: () => {},
 };
 
 export const stateContext = createContext(initialState);
@@ -58,9 +60,16 @@ const reducer = (state, action) => {
       ],
     };
   } else if (action.type === "DELETE-ITEM") {
-    let newBagList = state.bagItems.filter(
-      (item) => item.id !== action.payload
-    );
+    let newBagList = state.bagItems.reduce((arr, item) => {
+      if (item.id !== action.payload) {
+        arr.push(item);
+      } else if (item.quantity > 1) {
+        arr.push({ ...item, quantity: item.quantity - 1 });
+      }
+
+      return arr;
+    }, []);
+
     return { ...state, bagItems: newBagList };
   } else if (action.type === "ADD-USER") {
     return { ...state, user: action.payload };
@@ -168,6 +177,7 @@ export const StateProvider = ({ children }) => {
   // API calls
   const getCartItems = async () => {
     const token = localStorage.getItem("token");
+    console.log("fetching");
     try {
       const resp = await fetch("http://localhost:8080/cart/getCartItems", {
         method: "GET",
@@ -180,8 +190,7 @@ export const StateProvider = ({ children }) => {
         // Token expired or invalid
         console.log("Token expired. Redirecting to login...");
         localStorage.removeItem("token"); // Remove invalid token
-        Navigate("/login");
-        return;
+        return new Error(401);
       }
 
       if (resp.ok) {
@@ -198,6 +207,7 @@ export const StateProvider = ({ children }) => {
           setNewBagItems(newBagItems);
         }
         console.log(jsonResp);
+        return { message: 200 };
       }
 
       if (!resp.ok) {
@@ -205,6 +215,78 @@ export const StateProvider = ({ children }) => {
       }
     } catch (error) {
       toast.error("error in fetching Cart Items!");
+      console.log(error);
+    }
+  };
+
+  const addToCart = async (id) => {
+    const token = localStorage.getItem("token");
+
+    try {
+      const resp = await fetch(`http://localhost:8080/cart/add/${id}`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (resp.status === 401) {
+        // Token expired or invalid
+        console.log("Token expired. Redirecting to login...");
+        localStorage.removeItem("token"); // Remove invalid token
+        deleteItems(id); // in case of error remove from frontend
+        toast.error("Logged Out!, Please Refresh");
+        return;
+      }
+
+      if (resp.ok) {
+        toast.success("Added to Cart");
+        console.log("Added to cart");
+        await getCartItems();
+      }
+
+      if (!resp.ok) {
+        throw new Error(`Error ${resp.status}`);
+      }
+    } catch (error) {
+      toast.error("error in adding Cart Item!");
+      deleteItems(id); // in case of error remove from frontend
+      console.log(error);
+    }
+  };
+
+  const deleteItemFromCart = async (id, title, price, rating) => {
+    const token = localStorage.getItem("token");
+
+    try {
+      const resp = await fetch(`http://localhost:8080/cart/delete/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (resp.status === 401) {
+        // Token expired or invalid
+        console.log("Token expired. Redirecting to login...");
+        localStorage.removeItem("token"); // Remove invalid token
+        addItems(id, title, price, rating); // in case of error Undo changes in frontend
+        toast.error("logged out!, Please Refresh");
+        return;
+      }
+
+      if (resp.ok) {
+        toast.success("Item deleted");
+        console.log("Item deleted");
+        await getCartItems();
+      }
+
+      if (!resp.ok) {
+        throw new Error(`Error ${resp.status}`);
+      }
+    } catch (error) {
+      toast.error("error in Deleting Cart Item!");
+      addItems(id, title, price, rating); // in case of error Undo changes in frontend
       console.log(error);
     }
   };
@@ -223,6 +305,8 @@ export const StateProvider = ({ children }) => {
         setError: setError,
         resetError: resetError,
         getCartItems: getCartItems,
+        addToCart: addToCart,
+        deleteItemFromCart: deleteItemFromCart,
       }}
     >
       {children}

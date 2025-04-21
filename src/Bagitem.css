@@ -2,44 +2,94 @@
   padding: 15px;
   display: flex !important;
   border-bottom: 1px solid lightgray;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   margin-top: 10px;
   max-width: 100%;
-  overflow-wrap: break-word;
   justify-content: space-between;
+  align-items: center;
+  background-color: #f4f2f2;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* .item_info {
-} */
+.item_info {
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid rgb(185, 182, 182);
+  border-radius: 5px;
+  width: 60%;
+  height: 180px;
+  padding: 10px;
+}
 
-.item__title {
-  font-weight: bold;
+.item__title_ {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.item_price {
+.item_price_ {
   margin-top: 5px;
+  font-weight: 700;
 }
 
 .item__rating {
   display: flex;
 }
 
-.img__div > img {
-  object-fit: contain;
-  height: 180px;
+.item_img_ {
+  object-fit: cover;
+  height: 100px;
   margin-right: 15px;
-  width: 180px;
+  width: 100px;
   border: 1px solid rgb(185, 182, 182);
+  border-radius: 5px;
 }
 
-.item > button {
-  margin-top: 20px;
-  max-height: 30px;
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  border-radius: 6px;
+  width: fit-content;
+  height: 30px;
+  justify-content: space-between;
+  border: 1px solid rgb(55, 55, 55);
   background-color: white;
-  outline: none;
-  border: 1px solid rgba(31, 179, 220, 0.95);
-  border-radius: 10px;
+  padding: 7px;
+}
+
+.qty-btn {
+  width: 28px;
+  height: 28px;
+  background-color: white;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 0 1px #272323; /* creates inner border */
+  border-radius: 4px;
+  position: relative;
+}
+
+.qty-btn:hover {
+  background-color: #f3f3f3;
+}
+
+.qty-value {
+  font-size: 15px;
+  font-weight: 500;
+  min-width: 10px;
+  text-align: center;
 }
 
 /* media queries */
