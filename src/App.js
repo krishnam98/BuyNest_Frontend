@@ -20,6 +20,7 @@ import UpdateProduct from "./UpdateProduct.js";
 import SellerPanel from "./SellerPanel.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Register from "./Register.js";
 
 const promise = loadStripe(
   "pk_test_51Q1nOF00ra16hNa14LUzKBlid6oM7JCg2f2aK8m6CPYcZzaSTIKVvgfFblqRGLeg9nkd1ofs7ohVYuEwRgGE5WTF00kqo7Knez"
@@ -54,6 +55,7 @@ function App() {
     { path: "/confirmationPage", element: [<Header />, <Confirm />] },
     { path: `/orders`, element: [<Header />, <Orders />] },
     { path: "/login", element: [<Login />] },
+    { path: "/register", element: [<Register />] },
     { path: "/checkout", element: [<Header />, <Checkout />] },
     { path: "/dispProduct/:productID", element: [<Header />, <DispProd />] },
     { path: "/addProduct", element: [<AddProduct />] },

@@ -26,6 +26,16 @@
   margin-left: auto;
 }
 
+.Register_login_text {
+  color: rgb(142, 140, 140);
+  font-size: small;
+}
+
+.Register_login_link {
+  cursor: pointer;
+  color: black;
+}
+
 .login__container {
   width: 300px;
   height: fit-content;
@@ -34,6 +44,7 @@
   flex-direction: column;
   border-radius: 5px;
   border: 1px solid lightgray;
+  align-items: center;
 }
 
 .login__container > h1 {
@@ -56,13 +67,15 @@
 }
 
 .login__signInButton {
-  width: 95%;
+  width: 97%;
   height: 30px;
   border-radius: 5px;
   border: none;
   background-color: #f7d747;
   position: relative;
   padding: 0;
+  margin: 10px 0 20px 0;
+  font-weight: 600;
 }
 
 .login__signInButton:hover {

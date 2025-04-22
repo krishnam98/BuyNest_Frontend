@@ -5,7 +5,7 @@ import { auth } from "./firebase";
 import { toast, ToastContainer } from "react-toastify";
 import LoaderNew from "./LoaderNew";
 
-function Login() {
+function Register() {
   const [Fetching, setFetching] = useState(false);
   const [FetchingForReg, setFetchingForReg] = useState(false);
 
@@ -113,6 +113,9 @@ function Login() {
       <div className="login__container">
         <h1>Sign in</h1>
         <form onSubmit={(e) => handleSubmit(e)}>
+          <h5>Full Name</h5>
+          <input type="text" />
+
           <h5>Username</h5>
           <input type="text" ref={email} />
 
@@ -120,22 +123,22 @@ function Login() {
           <input type="password" ref={password} />
 
           <button
-            className="login__signInButton"
-            onClick={(e) => handleSubmit(e)}
+            className="login__register"
+            onClick={(e) => handleRegister(e)}
           >
-            {Fetching ? <LoaderNew /> : "Log In"}
+            {FetchingForReg ? <LoaderNew /> : "Create your Amazon Account"}
           </button>
         </form>
 
         <span className="Register_login_text">
-          Don't have an Account |{" "}
+          Already have an Account |{" "}
           <b
             className="Register_login_link"
             onClick={() => {
-              navigate("/register");
+              navigate("/login");
             }}
           >
-            Register
+            LogIn
           </b>
         </span>
       </div>
@@ -143,4 +146,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

@@ -10,9 +10,14 @@ function Subtotal() {
 
   const getTotal = (bagItems) => {
     return bagItems?.reduce(
-      (total, item) => total + Number(item.price.replace(/,/g, "")),
+      (total, item) => total + Number(item.price) * Number(item.quantity),
+
       0
     );
+  };
+
+  const getTotalItems = (bagItems) => {
+    return bagItems.reduce((acc, item) => acc + Number(item.quantity), 0);
   };
 
   console.log(getTotal(bagItems));
@@ -24,20 +29,15 @@ function Subtotal() {
 
   return (
     <div className="subtotal">
-      
-        
-          
-            <p>
-              Subtotal ({bagItems.length} items):
-              <strong>{curr}</strong>
-            </p>
-            <small className="subtotal__gift">
-              <input type="checkbox" />
-              This order contains gift
-            </small>
-          
-        
-      
+      <p>
+        Subtotal ({getTotalItems(bagItems)} items):
+        <strong>{curr}</strong>
+      </p>
+      <small className="subtotal__gift">
+        <input type="checkbox" />
+        This order contains gift
+      </small>
+
       <button
         onClick={() => {
           navigate("/payment");
