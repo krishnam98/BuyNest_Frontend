@@ -18,18 +18,19 @@
 
 .payment__section {
   display: flex;
+  flex-direction: column;
   padding: 20px;
   margin: 0 20px;
   border-bottom: 1px solid lightgray;
 }
 
-.payment__title {
+/* .payment__title {
   flex: 0.2;
 }
 
 .payment__address {
   flex: 0.8;
-}
+} */
 
 .payment__items {
   flex: 0.8;

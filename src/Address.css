@@ -4,8 +4,9 @@
   flex-direction: column;
   padding: 20px;
   width: fit-content;
-  border: 1px solid lightgray;
+  border: 1.2px solid rgb(135, 135, 135);
   border-radius: 10px;
+  background-color: #f4f2f2;
 }
 
 .add_container > h1 {
@@ -14,9 +15,10 @@
 }
 
 .add_container > form > h5 {
-  font-size: 15px;
-  font-weight: 350;
+  font-size: 13px;
   margin-top: 10px;
+  font-weight: 500;
+  margin-bottom: 5px;
 }
 
 .add_container > form > input {

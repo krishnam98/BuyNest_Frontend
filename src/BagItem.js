@@ -4,7 +4,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { stateContext } from "./StateProvider";
 import { useNavigate } from "react-router-dom";
 
-const Bagitem = ({ id, title, quantity, price, rating }, ref) => {
+const Bagitem = ({ id, title, quantity, price, rating, forReview }) => {
   const { addToCart, addItems, deleteItemFromCart, deleteItems } =
     useContext(stateContext);
   const navigate = useNavigate();
@@ -98,13 +98,22 @@ const Bagitem = ({ id, title, quantity, price, rating }, ref) => {
 
         <div className="quantity-control">
           <p className="item__title">Qty :</p>
-          <button className="qty-btn" onClick={decreaseQuantity}>
-            -
-          </button>
+          {forReview ? (
+            ""
+          ) : (
+            <button className="qty-btn" onClick={decreaseQuantity}>
+              -
+            </button>
+          )}
+
           <span className="qty-value">{quantity}</span>
-          <button className="qty-btn" onClick={increaseQuantity}>
-            +
-          </button>
+          {forReview ? (
+            ""
+          ) : (
+            <button className="qty-btn" onClick={increaseQuantity}>
+              +
+            </button>
+          )}
         </div>
       </div>
     </div>

@@ -1,0 +1,20 @@
+.delivery {
+  border: 2px solid rgb(28, 176, 14);
+  width: 20%;
+  height: fit-content;
+  padding: 10px 0px;
+  margin-top: 10px;
+  border-radius: 10px;
+  padding: 0px 10px;
+}
+
+.paragraph {
+  padding: 10px 10px 20px 10px;
+  border-bottom: 1px solid lightgrey;
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  width: 90%;
+  word-wrap: break-word; /* Add this */
+  white-space: normal;
+}

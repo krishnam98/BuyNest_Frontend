@@ -3,8 +3,6 @@ import { stateContext } from "./StateProvider";
 import Bagitem from "./BagItem";
 import "./payment.css";
 import { Link, useNavigate } from "react-router-dom";
-import { loadStripe } from "@stripe/stripe-js";
-import { db } from "./firebase";
 import Address from "./Address";
 import Delivery from "./Delivery";
 import Loader from "./Loader";
@@ -12,6 +10,7 @@ export const id = 0;
 function Payment() {
   const { bagItems, user, address } = useContext(stateContext);
   const [processing, setProcessing] = useState(false);
+  const token = localStorage.getItem("token");
   const bagData = {
     items: bagItems,
     user: user,
@@ -22,11 +21,15 @@ function Payment() {
   // calculating total amount
   const getTotal = (bagItems) => {
     return bagItems?.reduce(
-      (total, item) => total + Number(item.price.replace(/,/g, "")),
+      (total, item) => total + Number(item.price) * Number(item.quantity),
       0
     );
   };
   console.log(getTotal(bagItems));
+
+  const getTotalItems = (bagItems) => {
+    return bagItems.reduce((acc, item) => acc + Number(item.quantity), 0);
+  };
 
   const curr = getTotal(bagItems).toLocaleString("en-IN", {
     style: "currency",
@@ -36,32 +39,27 @@ function Payment() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setProcessing(true);
-    const stripe = await loadStripe(
-      "pk_test_51Q1nOF00ra16hNa14LUzKBlid6oM7JCg2f2aK8m6CPYcZzaSTIKVvgfFblqRGLeg9nkd1ofs7ohVYuEwRgGE5WTF00kqo7Knez"
-    );
 
     const body = {
-      products: bagItems,
+      houseNo: address.h_no,
+      lineOne: address.line1,
+      linetwo: address.line2,
+      pincode: address.pincode,
     };
 
     const headers = {
       "content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     };
 
-    const response = await fetch(
-      "https://amazon-cklone-backend.onrender.com/create-checkout-session",
-      {
-        method: "POST",
-        headers: headers,
-        body: JSON.stringify(body),
-      }
-    );
+    const response = await fetch("http://localhost:8080/order/createOrder", {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(body),
+    });
 
-    const session = await response.json();
+    console.log(response.status);
     setProcessing(false);
-    localStorage.setItem("bagData", JSON.stringify(bagData));
-
-    const result = stripe.redirectToCheckout({ sessionId: session.id });
   };
 
   // --
@@ -70,7 +68,8 @@ function Payment() {
     <div className="payment">
       <div className="payment__container">
         <h1>
-          Checkout(<Link to={"/checkout"}>{bagItems?.length} items</Link>)
+          Checkout(<Link to={"/checkout"}>{getTotalItems(bagItems)} items</Link>
+          )
         </h1>
         {/* section 1- delivery address*/}
         <div className="payment__section">
@@ -97,6 +96,8 @@ function Payment() {
                 image={item.image}
                 price={item.price}
                 rating={item.rating}
+                quantity={item.quantity}
+                forReview={true}
               />
             ))}
           </div>
@@ -109,16 +110,12 @@ function Payment() {
             <h3>Payment Method</h3>
           </div>
           <div className="payment__details">
-            {/* stripe stuff */}
             <form onSubmit={handleSubmit}>
               <div className="payment__priceContainer">
-                
-              
-                      <p>
-                        <strong>OrderTotal: {curr}</strong>
-                      </p>
-   
-                
+                <p>
+                  <strong>OrderTotal: {curr}</strong>
+                </p>
+
                 <button
                   disabled={processing || address.h_no === ""}
                   className={

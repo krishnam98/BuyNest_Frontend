@@ -1,4 +1,4 @@
-import { createContext, useReducer, useState } from "react";
+import { act, createContext, useReducer, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -10,6 +10,7 @@ const initialState = {
     h_no: "",
     line1: "",
     line2: "",
+    pincode: 0,
   },
   setError: () => {},
   resetError: () => {},
@@ -81,6 +82,7 @@ const reducer = (state, action) => {
         h_no: action.payload.h_no_val,
         line1: action.payload.line1_val,
         line2: action.payload.line2_val,
+        pincode: action.payload.pincode_val,
       },
     };
   } else if (action.type === "Set_Error") {
@@ -133,13 +135,14 @@ export const StateProvider = ({ children }) => {
     dispatch(action);
   };
 
-  const addAddress = (h_no, line1, line2) => {
+  const addAddress = (h_no, line1, line2, pincode) => {
     const action = {
       type: "ADD_ADDRESS",
       payload: {
         h_no_val: h_no,
         line1_val: line1,
         line2_val: line2,
+        pincode_val: pincode,
       },
     };
     dispatch(action);
