@@ -15,8 +15,8 @@ function Checkout() {
   useEffect(() => {
     const fetchingCartItems = async () => {
       let val = await getCartItems();
-      console.log(val.message);
-      if (val.message == 401) {
+      console.log(val?.message);
+      if (val?.message == 401) {
         navigate("/login");
       }
     };

@@ -60,9 +60,10 @@
 }
 
 .home__prod__container {
+  margin-top: 20px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  gap: 90px;
   position: relative;
   z-index: 3;
 }

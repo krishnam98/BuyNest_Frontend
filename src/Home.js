@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import Loader from "./Loader.js";
 import LoaderNew from "./LoaderNew.js";
 import { stateContext } from "./StateProvider.js";
+import ProductCard from "./ProductCard.js";
 
 function Home() {
   const { getCartItems } = useContext(stateContext);
@@ -66,11 +67,23 @@ function Home() {
         {Fetching && <LoaderNew />}
         <div className="home__prod__container">
           {prodList.map((item) => (
-            <Product
+            // <Product
+            //   id={item.id}
+            //   title={item.description}
+            //   price={item.price}
+            //   rating={item.rating}
+            // />
+            <ProductCard
               id={item.id}
-              title={item.description}
+              title={item.name}
+              description={item.description}
               price={item.price}
               rating={item.rating}
+              sellerName={item.sellerName}
+              imageData={item.imageData}
+              imageType={item.imageType}
+              forOrder={false}
+              forSeller={false}
             />
           ))}
         </div>

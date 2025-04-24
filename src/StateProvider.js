@@ -197,6 +197,11 @@ export const StateProvider = ({ children }) => {
       }
 
       if (resp.ok) {
+        const contentLength = resp.headers.get("Content-Length");
+
+        if (!contentLength || contentLength === "0") {
+          return; // empty body, nothing to parse
+        }
         const jsonResp = await resp.json();
         if (jsonResp != null) {
           const newBagItems = jsonResp.map((item) => ({
