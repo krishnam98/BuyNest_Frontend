@@ -16,6 +16,7 @@ const ProductCard = ({
   imageType,
   forSeller,
   forOrder,
+  forOrder_Buyer,
   Address,
   quantity,
   orderId,
@@ -25,6 +26,7 @@ const ProductCard = ({
   const { addItems, deleteItems } = useContext(stateContext);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  console.log(id);
 
   const getDate = (date) => {
     let timeStamp = date;
@@ -124,7 +126,9 @@ const ProductCard = ({
           src={imgsrc}
           alt="Product Img"
           className="card_img"
-          onClick={handleClick}
+          onClick={() => {
+            handleClick(id);
+          }}
         />
         {/* section1 - product name, Rating */}
         <div className="card_section1">
@@ -156,7 +160,12 @@ const ProductCard = ({
               <b>{`x${quantity}`}</b>
             </div>
           ) : (
-            `Sold By:${sellerName}`
+            <div className="orderCard_Section3">
+              <span>
+                <b>Sold By: </b> {`${sellerName}`}
+              </span>
+              {forOrder_Buyer && <b>{`x${quantity}`}</b>}
+            </div>
           )}
         </div>
 
@@ -164,7 +173,7 @@ const ProductCard = ({
         <div className="card_section4">
           <span className="card_section4_price">₹{price} </span>
 
-          {!forSeller && !forOrder && (
+          {!forSeller && !forOrder && !forOrder_Buyer && (
             <div className="card_section4_btns">
               <button className="coloredBtn" onClick={() => handleAdd()}>
                 Add To Cart

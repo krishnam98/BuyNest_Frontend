@@ -1,25 +1,71 @@
 .orderContainer {
   background-color: white;
   padding: 15px;
-  margin-top: 10px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: fit-content;
 }
 
-.order_info > h2 {
-  font-size: 15px;
-  font-weight: 700;
+.order_info_section {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Roboto Condensed", sans-serif;
 }
 
-.order_info > p {
-  color: rgb(136, 134, 134);
+.order_info {
+  padding: 10px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  border: 0.5px solid lightslategray;
+  border-radius: 10px;
+}
+
+.date_order {
+  font-size: 13px;
+}
+
+.orderid {
   font-size: 10px;
+  color: #908f8f;
 }
 
-.orderAmt > p {
-  font-size: 15px;
-  font-weight: 700;
+.price {
+  font-size: 12px;
 }
-
 .rupee_symbol {
   font-weight: 500;
-  font-size: 10px;
+  font-size: 12px;
+}
+
+.delivery_Order {
+  border: 2px solid rgb(22, 178, 30);
+  padding: 10px 10px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.paragraph_Order {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  font-size: 14px;
+}
+
+.orderItems {
+  width: 100%;
+  height: 90%;
+  padding: 10px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-evenly;
+  overflow-x: scroll;
 }
