@@ -91,17 +91,10 @@ const SellerPanel = () => {
 
   return (
     <div className="sp_seller_panel">
-      <header className="sp_seller_header">
+      {/* <header className="sp_seller_header">
         <h1 className="sp_title">Seller Dashboard</h1>
-        <div className="sp_action_buttons">
-          <button
-            className="sp_add_button"
-            onClick={() => navigate("/addProduct")}
-          >
-            Add Product
-          </button>
-        </div>
-      </header>
+        <div className="sp_action_buttons"></div>
+      </header> */}
 
       <div className="sp_product_management">
         <div className="sp_section">

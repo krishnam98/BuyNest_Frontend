@@ -21,6 +21,7 @@ import SellerPanel from "./SellerPanel.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Register from "./Register.js";
+import RoleBasedComp from "./RoleBasedComp.js";
 
 const promise = loadStripe(
   "pk_test_51Q1nOF00ra16hNa14LUzKBlid6oM7JCg2f2aK8m6CPYcZzaSTIKVvgfFblqRGLeg9nkd1ofs7ohVYuEwRgGE5WTF00kqo7Knez"
@@ -41,7 +42,7 @@ function App() {
   }, []);
 
   const router = createBrowserRouter([
-    { path: "/", element: [<Header />, <Home />] },
+    { path: "/", element: [<Header />, <RoleBasedComp />] },
     {
       path: "/payment",
       element: [

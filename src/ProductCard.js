@@ -175,20 +175,32 @@ const ProductCard = ({
 
           {!forSeller && !forOrder && !forOrder_Buyer && (
             <div className="card_section4_btns">
-              <button className="coloredBtn" onClick={() => handleAdd()}>
+              <button
+                className="coloredBtn"
+                onClick={() => {
+                  handleAdd();
+                }}
+              >
                 Add To Cart
               </button>
             </div>
           )}
           {forSeller && (
             <div className="card_section4_btns">
-              <button className="otherBtn" onClick={() => handleDelete()}>
+              <button
+                className="otherBtn"
+                onClick={() => {
+                  handleDelete();
+                }}
+              >
                 <MdOutlineDelete />
               </button>
 
               <button
                 className="coloredBtnForSeller"
-                onClick={() => handleUpdate()}
+                onClick={() => {
+                  handleUpdate();
+                }}
               >
                 Update
               </button>

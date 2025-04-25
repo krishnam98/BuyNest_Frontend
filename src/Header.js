@@ -5,9 +5,12 @@ import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { useNavigate } from "react-router-dom";
 import { stateContext } from "./StateProvider";
 import { Link } from "react-router-dom";
-import { auth } from "./firebase";
+import { jwtDecode } from "jwt-decode";
+import { toast } from "react-toastify";
+
 function Header() {
   const navigate = useNavigate();
+  const [username, setUsername] = useState("");
   const [classState, setClass] = useState(false);
   const [value, SetValue] = useState("");
   const [isListVisible, setListVisibility] = useState(false);
@@ -19,11 +22,7 @@ function Header() {
   const role = localStorage.getItem("role");
   const token = localStorage.getItem("token");
 
-  const handleAuthentication = () => {
-    if (user) {
-      auth.signOut();
-    }
-  };
+  console.log("Username:", username);
 
   const handleStyle = () => {
     setClass(!classState);
@@ -57,6 +56,10 @@ function Header() {
   };
 
   useEffect(() => {
+    if (token) {
+      const decode = jwtDecode(token);
+      setUsername(decode.sub);
+    }
     getCartItems();
     const handleClickOutside = (e) => {
       if (listRef.current && !listRef.current.contains(e.target)) {
@@ -70,6 +73,14 @@ function Header() {
     };
   }, []);
 
+  const handleLogOut = () => {
+    localStorage.removeItem("token");
+    if (localStorage.getItem("token") === null) {
+      toast.success("Logged Out");
+      navigate("/login");
+    }
+  };
+
   return (
     <>
       <div className="header">
@@ -82,22 +93,23 @@ function Header() {
           }}
         />
 
-        <div className="header__search" ref={listRef}>
-          <input
-            className="header__searchInput"
-            type="text"
-            onChange={handleInputChange}
-            value={value}
-          />
-          {isListVisible && (
-            <ul className="header_SearchList">
-              {searchList.map((item) => (
-                <li className="header__listItem">
-                  <SearchIcon />
-                  <span className="listSpan">{item.name}</span>
-                </li>
-              ))}
-              {/*              
+        {role !== "SELLER" && (
+          <div className="header__search" ref={listRef}>
+            <input
+              className="header__searchInput"
+              type="text"
+              onChange={handleInputChange}
+              value={value}
+            />
+            {isListVisible && (
+              <ul className="header_SearchList">
+                {searchList.map((item) => (
+                  <li className="header__listItem">
+                    <SearchIcon />
+                    <span className="listSpan">{item.name}</span>
+                  </li>
+                ))}
+                {/*              
               <li className="header__listItem">
                 <SearchIcon />
                 <span className="listSpan">Apple</span>
@@ -110,11 +122,15 @@ function Header() {
                 <SearchIcon />
                 <span className="listSpan">Asus</span>
               </li> */}
-            </ul>
-          )}
+              </ul>
+            )}
 
-          <SearchIcon className="header__searchIcon" />
-        </div>
+            <SearchIcon className="header__searchIcon" />
+          </div>
+        )}
+        {/* {role === "SELLER" && (
+          <h1 className="heading_seller">Seller Dashboard</h1>
+        )} */}
 
         <div className="menu">
           <button
@@ -128,49 +144,60 @@ function Header() {
         </div>
 
         <div className="header__nav">
-          {role === "SELLER" && (
-            <Link to="/SellerPanel" className="header__link">
-              <div className="header__option mobile link">
-                <span className="header__optionLineOne">Admin</span>
+          <div className="header__link">
+            <div className="header__option mobile">
+              <span className="header__optionLineOne">
+                {username ? (
+                  <>
+                    Hello, <b>{username}</b>
+                  </>
+                ) : (
+                  "Hello Guest"
+                )}
+              </span>
 
-                <span className="header__optionLineTwo">Panel</span>
+              <span
+                className="header__optionLineTwo"
+                onClick={() => {
+                  handleLogOut();
+                }}
+              >
+                {token !== null ? "Log Out" : "Sign In"}
+              </span>
+            </div>
+          </div>
+          {role === "USER" && (
+            <Link to="/orders" className="header__link">
+              <div className="header__option mobile link">
+                <span className="header__optionLineOne">Returns</span>
+
+                <span className="header__optionLineTwo">& Orders</span>
               </div>
             </Link>
           )}
 
-          <Link to={!user && "/login"} className="header__link">
-            <div
-              className="header__option mobile"
-              onClick={handleAuthentication}
+          {role === "SELLER" && (
+            <button
+              className="Header_add_button"
+              onClick={() => navigate("/addProduct")}
             >
-              <span className="header__optionLineOne">
-                {user ? user?._delegate.email : "Hello Guest"}
-              </span>
+              Add Product
+            </button>
+          )}
 
-              <span className="header__optionLineTwo">
-                {user ? "Sign Out" : "Sign In"}
+          {role === "USER" && (
+            <div
+              className="header__optionBasket"
+              onClick={() => {
+                navigate("/checkout");
+              }}
+            >
+              <ShoppingBasketIcon />
+              <span className="header__optionLineTwo header__basketCount">
+                {bagItems?.length}
               </span>
             </div>
-          </Link>
-          <Link to="/orders" className="header__link">
-            <div className="header__option mobile link">
-              <span className="header__optionLineOne">Returns</span>
-
-              <span className="header__optionLineTwo">& Orders</span>
-            </div>
-          </Link>
-
-          <div
-            className="header__optionBasket"
-            onClick={() => {
-              navigate("/checkout");
-            }}
-          >
-            <ShoppingBasketIcon />
-            <span className="header__optionLineTwo header__basketCount">
-              {bagItems?.length}
-            </span>
-          </div>
+          )}
         </div>
       </div>
 
@@ -178,7 +205,7 @@ function Header() {
       <ul className={classState ? "list styled" : "list"}>
         <li>
           <Link to={!user && "/login"} className="header__link">
-            <div className="header__option " onClick={handleAuthentication}>
+            <div className="header__option ">
               <span className="header__optionLineOne">
                 {user ? user?._delegate.email : "Hello Guest"}
               </span>
