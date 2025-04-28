@@ -113,7 +113,7 @@ function Login() {
       <div className="login__container">
         <h1>Sign in</h1>
         <form onSubmit={(e) => handleSubmit(e)}>
-          <h5>Username</h5>
+          <h5>Username / Agency Name</h5>
           <input type="text" ref={email} />
 
           <h5>Password</h5>
