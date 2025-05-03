@@ -6,9 +6,10 @@ import { Link, useNavigate } from "react-router-dom";
 import Address from "./Address";
 import Delivery from "./Delivery";
 import Loader from "./Loader";
+import { toast } from "react-toastify";
 export const id = 0;
 function Payment() {
-  const { bagItems, user, address } = useContext(stateContext);
+  const { getCartItems, bagItems, user, address } = useContext(stateContext);
   const [processing, setProcessing] = useState(false);
   const token = localStorage.getItem("token");
   const bagData = {
@@ -52,14 +53,34 @@ function Payment() {
       Authorization: `Bearer ${token}`,
     };
 
-    const response = await fetch("http://localhost:8080/order/createOrder", {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify(body),
-    });
+    try {
+      const response = await fetch("http://localhost:8080/order/createOrder", {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(body),
+      });
 
-    console.log(response.status);
-    setProcessing(false);
+      console.log(response.status);
+      setProcessing(false);
+
+      if (response.status === 401) {
+        toast.error("logged Out");
+        navigate("/login");
+        return;
+      }
+
+      if (response.status === 201) {
+        toast.success("Order Created");
+        navigate("/confirmationPage");
+        return;
+      } else {
+        throw new Error("Error Occured");
+      }
+    } catch (error) {
+      toast.error("Error in creating Order!");
+      navigate("/checkout");
+      return;
+    }
   };
 
   // --

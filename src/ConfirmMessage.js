@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import "./ConfirmMessage.css";
 import { useNavigate } from "react-router-dom";
+import { stateContext } from "./StateProvider";
 
 function ConfirmMessage() {
   const navigate = useNavigate();
+
   return (
     <>
       <div className="confirm_msg">

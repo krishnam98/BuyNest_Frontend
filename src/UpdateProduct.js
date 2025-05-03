@@ -216,21 +216,23 @@ function UpdateProduct() {
               <span className="heading">Brand</span>
               <input placeholder="Brand " className="narrow" ref={brandRef} />
             </div>
+          </div>
+
+          <div className="pair_input">
             <div className="inp">
               <span className="heading">Release Date</span>
               <input type="date" ref={dateRef} />
             </div>
+            <div className="inp">
+              <span className="heading">Quantity</span>
+              <input
+                placeholder="quantity"
+                className="narrow"
+                type="number"
+                ref={quantityRef}
+              />
+            </div>
           </div>
-          <div className="inp">
-            <span className="heading">Description</span>
-            <textarea
-              className="Description"
-              placeholder="description of your project "
-              rows={3}
-              ref={descRef}
-            />
-          </div>
-
           <div className="pair_input">
             <div className="inp">
               <span className="heading ">price</span>
@@ -250,17 +252,17 @@ function UpdateProduct() {
                 ref={categoryRef}
               />
             </div>
-
-            <div className="inp">
-              <span className="heading">Quantity</span>
-              <input
-                placeholder="quantity"
-                className="narrow"
-                type="number"
-                ref={quantityRef}
-              />
-            </div>
           </div>
+          <div className="inp">
+            <span className="heading">Description</span>
+            <textarea
+              className="Description"
+              placeholder="description of your project "
+              rows={3}
+              ref={descRef}
+            />
+          </div>
+
           <div className="pair_input">
             {updateImg ? (
               <div className="inp">
@@ -268,7 +270,9 @@ function UpdateProduct() {
                 <input type="file" ref={imagRef} onChange={handleChange} />
               </div>
             ) : (
-              <button onClick={handlephoto}>Upload Photo</button>
+              <button onClick={handlephoto} className="uploadbtn">
+                Upload Photo
+              </button>
             )}
           </div>
 

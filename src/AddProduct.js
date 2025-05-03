@@ -3,6 +3,9 @@ import "./AddProduct.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import LoaderNew from "./LoaderNew";
+import Cropper from "react-easy-crop";
+import getCroppedImg from "./cropImage"; // We will create this utility.
+import { v4 as uuidv4 } from "uuid";
 
 function AddProduct() {
   const navigate = useNavigate();
@@ -19,6 +22,12 @@ function AddProduct() {
   const categoryRef = useRef(null);
   const quantityRef = useRef(null);
 
+  const [imageSrc, setImageSrc] = useState(null);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [croppedFile, setCroppedFile] = useState(null);
+
   useEffect(() => {
     const tokenItem = localStorage.getItem("token");
     setToken(tokenItem);
@@ -32,8 +41,20 @@ function AddProduct() {
     }
   };
 
-  const handleChange = () => {
+  const handleChange = async (e) => {
     renderImage();
+    const readFile = (file) => {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.addEventListener("load", () => resolve(reader.result));
+        reader.readAsDataURL(file);
+      });
+    };
+    const file = e.target.files[0];
+    if (file) {
+      const imageDataUrl = await readFile(file);
+      setImageSrc(imageDataUrl);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -57,7 +78,9 @@ function AddProduct() {
       new Blob([JSON.stringify(product)], { type: "application/json" })
     );
 
-    if (imagRef.current.files[0]) {
+    if (croppedFile) {
+      formData.append("imageFile", croppedFile);
+    } else if (imagRef.current.files[0]) {
       formData.append("imageFile", imagRef.current.files[0]);
     }
 
@@ -98,6 +121,47 @@ function AddProduct() {
   return (
     <div className="addProduct_container">
       <span className="main_heading">Add Your Product</span>
+      {imageSrc && (
+        <div className="cropper-container">
+          <div className="cropper">
+            <Cropper
+              image={imageSrc}
+              crop={crop}
+              zoom={zoom}
+              aspect={1} // Set 1 for 1:1 square, 4/3 for 4:3 etc
+              onCropChange={setCrop}
+              onZoomChange={setZoom}
+              onCropComplete={(_, croppedAreaPixels) =>
+                setCroppedAreaPixels(croppedAreaPixels)
+              }
+            />
+          </div>
+          <div className="cropper-controls">
+            <input
+              type="range"
+              min={1}
+              max={3}
+              step={0.1}
+              value={zoom}
+              onChange={(e) => setZoom(e.target.value)}
+            />
+            <button
+              onClick={async () => {
+                const cropped = await getCroppedImg(
+                  imageSrc,
+                  croppedAreaPixels
+                );
+                setCroppedFile(cropped);
+                setUrl(URL.createObjectURL(cropped));
+                setImageSrc(null); // close cropper
+              }}
+            >
+              Crop & Save
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="form_container">
         <div className="img">
           <img src={url ? url : "package.png"} />
@@ -112,19 +176,21 @@ function AddProduct() {
               <span className="heading">Brand</span>
               <input placeholder="Brand " className="narrow" ref={brandRef} />
             </div>
+          </div>
+          <div className="pair_input">
             <div className="inp">
               <span className="heading">Release Date</span>
               <input type="date" ref={dateRef} />
             </div>
-          </div>
-          <div className="inp">
-            <span className="heading">Description</span>
-            <textarea
-              className="Description"
-              placeholder="description of your project "
-              rows={3}
-              ref={descRef}
-            />
+            <div className="inp">
+              <span className="heading">Quantity</span>
+              <input
+                placeholder="quantity"
+                className="narrow"
+                type="number"
+                ref={quantityRef}
+              />
+            </div>
           </div>
 
           <div className="pair_input">
@@ -146,22 +212,20 @@ function AddProduct() {
                 ref={categoryRef}
               />
             </div>
-
-            <div className="inp">
-              <span className="heading">Quantity</span>
-              <input
-                placeholder="quantity"
-                className="narrow"
-                type="number"
-                ref={quantityRef}
-              />
-            </div>
           </div>
-          <div className="pair_input">
-            <div className="inp">
-              <span className="heading">Upload Photo</span>
-              <input type="file" ref={imagRef} onChange={handleChange} />
-            </div>
+          <div className="inp">
+            <span className="heading">Description</span>
+            <textarea
+              className="Description"
+              placeholder="description of your project "
+              rows={3}
+              ref={descRef}
+            />
+          </div>
+
+          <div className="inp">
+            <span className="heading">Upload Photo</span>
+            <input type="file" ref={imagRef} onChange={handleChange} />
           </div>
 
           <div className="pair_input">

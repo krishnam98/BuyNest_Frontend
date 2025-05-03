@@ -196,12 +196,17 @@ export const StateProvider = ({ children }) => {
         return new Error(401);
       }
 
-      if (resp.ok) {
-        const contentLength = resp.headers.get("Content-Length");
+      if (resp.status === 204) {
+        setNewBagItems([]);
+        return { message: 204 };
+      }
 
-        if (!contentLength || contentLength === "0") {
-          return; // empty body, nothing to parse
-        }
+      if (resp.ok) {
+        // const contentLength = resp.headers.get("Content-Length");
+
+        // if (!contentLength || contentLength === "0") {
+        //   return; // empty body, nothing to parse
+        // }
         const jsonResp = await resp.json();
         if (jsonResp != null) {
           const newBagItems = jsonResp.map((item) => ({
