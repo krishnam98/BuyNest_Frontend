@@ -103,7 +103,7 @@ function AddProduct() {
         }
         if (resp.ok) {
           toast.success("Product Added! ");
-          navigate("/SellerPanel");
+          navigate("/");
         }
         if (!resp.ok) {
           throw new Error("something went wrong!");
