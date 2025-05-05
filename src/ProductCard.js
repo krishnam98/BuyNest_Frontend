@@ -21,6 +21,7 @@ const ProductCard = ({
   quantity,
   orderId,
   date,
+  deleted,
 }) => {
   const imgsrc = `data:${imageType};base64,${imageData}`;
   const { addItems, deleteItems } = useContext(stateContext);
@@ -210,6 +211,11 @@ const ProductCard = ({
             <span className="orderId">{`OrderID: #${orderId}`}</span>
           )}
         </div>
+        {deleted && (
+          <div className="overlay">
+            <span className="overlayText">DELETED</span>
+          </div>
+        )}
       </div>
     </>
   );

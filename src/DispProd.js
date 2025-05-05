@@ -107,6 +107,12 @@ function DispProd() {
           <p>
             <b>Brand:</b> {product?.brand}
           </p>
+          <p>
+            <b>Seller:</b> {product?.sellerName}
+          </p>
+          <p>
+            <b>Category:</b> {product?.category}
+          </p>
         </div>
 
         <div className="rating">
@@ -118,10 +124,6 @@ function DispProd() {
               <p>⭐</p>
             ))}
         </div>
-
-        <p className="category">
-          <b>Category:</b> <span>{product?.category}</span>
-        </p>
 
         <p>
           {" "}

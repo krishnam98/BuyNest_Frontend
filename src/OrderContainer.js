@@ -59,6 +59,7 @@ function OrderContainer({ info }) {
             forSeller={false}
             forOrder={false}
             forOrder_Buyer={true}
+            deleted={item.productDTO.deleted}
           />
         ))}
       </div>

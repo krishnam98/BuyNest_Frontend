@@ -81,6 +81,15 @@ function Header() {
     }
   };
 
+  const getTotalItems = () => {
+    let count = 0;
+    bagItems.forEach((item) => {
+      count += item.quantity;
+    });
+
+    return count;
+  };
+
   return (
     <>
       <div className="header">
@@ -194,7 +203,7 @@ function Header() {
             >
               <ShoppingBasketIcon />
               <span className="header__optionLineTwo header__basketCount">
-                {bagItems?.length}
+                {getTotalItems()}
               </span>
             </div>
           )}

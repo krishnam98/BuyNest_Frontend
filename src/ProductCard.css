@@ -1,4 +1,5 @@
 .Card {
+  position: relative;
   height: 420px;
   width: 250px;
   border: 1.5px solid black;
@@ -160,4 +161,29 @@
   color: #6e6e6e;
   font-weight: 600;
   font-size: 10px;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(180, 179, 179, 0.772); /* darker black overlay */
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
+/* Slanted "Deleted" text */
+.overlayText {
+  color: rgba(65, 65, 65, 0.822);
+  font-size: 60px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  transform: rotate(-45deg); /* slanted text from bottom-left to top-right */
+  text-shadow: 2px 2px 6px rgba(93, 93, 93, 0.457);
+  opacity: 0.9;
 }

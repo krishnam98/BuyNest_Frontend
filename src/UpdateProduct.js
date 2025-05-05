@@ -179,7 +179,8 @@ function UpdateProduct() {
         return;
       }
       if (resp.ok) {
-        toast.update("product Updated");
+        toast.success("product Updated");
+        navigate("/");
       }
       if (!resp.ok) {
         throw new Error("error in updating");

@@ -122,20 +122,24 @@ const SellerPanel = () => {
 
         <div className="sp_product_grid">
           {showingProducts
-            ? products.map((item) => (
-                <ProductCard
-                  id={item.id}
-                  title={item.name}
-                  description={item.description}
-                  price={item.price}
-                  rating={item.rating}
-                  sellerName={item.sellerName}
-                  imageData={item.imageData}
-                  imageType={item.imageType}
-                  forOrder={false}
-                  forSeller={true}
-                />
-              ))
+            ? products.map(
+                (item) =>
+                  !item.deleted && (
+                    <ProductCard
+                      id={item.id}
+                      title={item.name}
+                      description={item.description}
+                      price={item.price}
+                      rating={item.rating}
+                      sellerName={item.sellerName}
+                      imageData={item.imageData}
+                      imageType={item.imageType}
+                      forOrder={false}
+                      forSeller={true}
+                      deleted={item.deleted}
+                    />
+                  )
+              )
             : orders.map((item) => (
                 // <Bagitem
                 //   id={item.productDTO.id}
@@ -158,6 +162,7 @@ const SellerPanel = () => {
                   date={item.date}
                   forOrder={true}
                   forSeller={false}
+                  deleted={item.productDTO.deleted}
                 />
               ))}
         </div>

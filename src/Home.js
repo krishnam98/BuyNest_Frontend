@@ -66,26 +66,29 @@ function Home() {
       <div className="home__container">
         {Fetching && <LoaderNew />}
         <div className="home__prod__container">
-          {prodList.map((item) => (
-            // <Product
-            //   id={item.id}
-            //   title={item.description}
-            //   price={item.price}
-            //   rating={item.rating}
-            // />
-            <ProductCard
-              id={item.id}
-              title={item.name}
-              description={item.description}
-              price={item.price}
-              rating={item.rating}
-              sellerName={item.sellerName}
-              imageData={item.imageData}
-              imageType={item.imageType}
-              forOrder={false}
-              forSeller={false}
-            />
-          ))}
+          {prodList.map(
+            (item) =>
+              // <Product
+              //   id={item.id}
+              //   title={item.description}
+              //   price={item.price}
+              //   rating={item.rating}
+              // />
+              !item.deleted && (
+                <ProductCard
+                  id={item.id}
+                  title={item.name}
+                  description={item.description}
+                  price={item.price}
+                  rating={item.rating}
+                  sellerName={item.sellerName}
+                  imageData={item.imageData}
+                  imageType={item.imageType}
+                  forOrder={false}
+                  forSeller={false}
+                />
+              )
+          )}
         </div>
       </div>
     </div>

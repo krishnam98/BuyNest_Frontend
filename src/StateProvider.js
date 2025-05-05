@@ -209,13 +209,15 @@ export const StateProvider = ({ children }) => {
         // }
         const jsonResp = await resp.json();
         if (jsonResp != null) {
-          const newBagItems = jsonResp.map((item) => ({
-            id: item.id,
-            title: item.description,
-            price: item.price,
-            rating: item.rating,
-            quantity: item.quantity,
-          }));
+          const newBagItems = jsonResp
+            .filter((item) => !item.deleted)
+            .map((item) => ({
+              id: item.id,
+              title: item.description,
+              price: item.price,
+              rating: item.rating,
+              quantity: item.quantity,
+            }));
 
           setNewBagItems(newBagItems);
         }
