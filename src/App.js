@@ -43,7 +43,7 @@ function App() {
         addUser(null);
       }
     });
-  });
+  }, []);
 
   const router = createBrowserRouter([
     { path: "/", element: [<Header />, <RoleBasedComp />] },
