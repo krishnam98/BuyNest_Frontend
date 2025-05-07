@@ -106,7 +106,7 @@ function UpdateProduct() {
       console.log("error", error);
       toast.error("Something Went wrong");
     }
-  }, []);
+  }, [navigate]);
 
   // setting the recently uploaded image to be sent for upload and preview
   const renderImage = async () => {

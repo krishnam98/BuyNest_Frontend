@@ -137,7 +137,7 @@ function Product({ id, title, price, rating, forSeller }) {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <div className="product">

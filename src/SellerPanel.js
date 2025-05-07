@@ -87,7 +87,7 @@ const SellerPanel = () => {
 
     fetchSellerProducts();
     fetchSellerOrders();
-  }, []);
+  }, [navigate]);
 
   return (
     <div className="sp_seller_panel">

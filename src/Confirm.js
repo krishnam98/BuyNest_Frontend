@@ -14,11 +14,12 @@ import SessionExpired from "./SessionExpired";
 
 function Confirm() {
   const { getCartItems } = useContext(stateContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log("added");
     getCartItems();
-  }, []);
+  }, [navigate]);
 
   localStorage.removeItem("bagData");
 

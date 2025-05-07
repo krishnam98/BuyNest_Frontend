@@ -93,7 +93,7 @@ function DispProd() {
 
     fetchProduct();
     fetchImg();
-  }, []);
+  }, [navigate]);
   return (
     <div className="prod__page__container">
       {fetching && <LoaderNew />}

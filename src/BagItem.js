@@ -74,7 +74,7 @@ const Bagitem = ({ id, title, quantity, price, rating, forReview }) => {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <div className="item">

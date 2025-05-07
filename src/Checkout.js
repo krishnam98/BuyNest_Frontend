@@ -16,13 +16,13 @@ function Checkout() {
     const fetchingCartItems = async () => {
       let val = await getCartItems();
       console.log(val?.message);
-      if (val?.message == 401) {
+      if (val?.message === 401) {
         navigate("/login");
       }
     };
 
     fetchingCartItems();
-  }, []);
+  }, [navigate]);
   return (
     <div className="checkout">
       <div className="checkout__left">
