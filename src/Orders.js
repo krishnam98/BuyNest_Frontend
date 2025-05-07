@@ -17,12 +17,15 @@ function Orders() {
       const token = localStorage.getItem("token");
       try {
         setFetching(true);
-        const resp = await fetch("http://localhost:8080/order/getOrders", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const resp = await fetch(
+          "https://buynestbackend-production.up.railway.app/order/getOrders",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (resp.status === 401) {
           // Token expired or invalid

@@ -25,7 +25,7 @@ function DispProd() {
       try {
         setFetching(true);
         const resp = await fetch(
-          `http://localhost:8080/api/product/${productID}`,
+          `https://buynestbackend-production.up.railway.app/api/product/${productID}`,
           {
             method: "GET",
             headers: {
@@ -60,7 +60,7 @@ function DispProd() {
     const fetchImg = async () => {
       try {
         const resp = await fetch(
-          `http://localhost:8080/api/product/${productID}/image`,
+          `https://buynestbackend-production.up.railway.app/api/product/${productID}/image`,
           {
             method: "GET",
             headers: {

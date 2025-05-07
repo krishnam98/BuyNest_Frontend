@@ -54,11 +54,14 @@ function Payment() {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/order/createOrder", {
-        method: "POST",
-        headers: headers,
-        body: JSON.stringify(body),
-      });
+      const response = await fetch(
+        "https://buynestbackend-production.up.railway.app/order/createOrder",
+        {
+          method: "POST",
+          headers: headers,
+          body: JSON.stringify(body),
+        }
+      );
 
       console.log(response.status);
       setProcessing(false);

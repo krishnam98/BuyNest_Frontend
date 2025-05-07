@@ -87,13 +87,16 @@ function AddProduct() {
     const sendData = async () => {
       try {
         setFetching(true);
-        const resp = await fetch("http://localhost:8080/api/addProduct", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formData,
-        });
+        const resp = await fetch(
+          "https://buynestbackend-production.up.railway.app/api/addProduct",
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            body: formData,
+          }
+        );
         setFetching(false);
         console.log(resp);
         if (resp.status === 401) {
