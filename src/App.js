@@ -2,7 +2,11 @@ import "./App.css";
 import Checkout from "./Checkout";
 import Header from "./Header";
 import Home from "./Home";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  useNavigate,
+} from "react-router-dom";
 import Login from "./Login";
 import { useContext, useEffect } from "react";
 import { auth } from "./firebase";
@@ -27,6 +31,8 @@ const promise = loadStripe(
   "pk_test_51Q1nOF00ra16hNa14LUzKBlid6oM7JCg2f2aK8m6CPYcZzaSTIKVvgfFblqRGLeg9nkd1ofs7ohVYuEwRgGE5WTF00kqo7Knez"
 );
 
+const navigate = useNavigate();
+
 function App() {
   const { addUser, user } = useContext(stateContext);
   useEffect(() => {
@@ -39,7 +45,7 @@ function App() {
         addUser(null);
       }
     });
-  }, []);
+  }, [navigate]);
 
   const router = createBrowserRouter([
     { path: "/", element: [<Header />, <RoleBasedComp />] },
