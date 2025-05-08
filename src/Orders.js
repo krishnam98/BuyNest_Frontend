@@ -52,7 +52,7 @@ function Orders() {
     };
 
     fetchOrders();
-  }, [navigate]);
+  }, []);
 
   // console.log(orders);
   return (

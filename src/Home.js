@@ -63,7 +63,7 @@ function Home() {
     } else {
       navigate("/login");
     }
-  }, [navigate]);
+  }, []);
   return (
     <div className="home">
       <div className="home__container">

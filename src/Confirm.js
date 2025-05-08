@@ -19,7 +19,7 @@ function Confirm() {
   useEffect(() => {
     console.log("added");
     getCartItems();
-  }, [navigate]);
+  }, []);
 
   localStorage.removeItem("bagData");
 

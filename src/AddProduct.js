@@ -31,7 +31,7 @@ function AddProduct() {
   useEffect(() => {
     const tokenItem = localStorage.getItem("token");
     setToken(tokenItem);
-  }, [navigate]);
+  }, []);
 
   const renderImage = async () => {
     const uploadedFile = await imagRef.current.files[0];

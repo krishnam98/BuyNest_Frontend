@@ -71,7 +71,7 @@ function Header() {
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  }, [navigate]);
+  }, []);
 
   const handleLogOut = () => {
     localStorage.removeItem("token");

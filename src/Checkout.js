@@ -22,7 +22,7 @@ function Checkout() {
     };
 
     fetchingCartItems();
-  }, [navigate]);
+  }, []);
   return (
     <div className="checkout">
       <div className="checkout__left">
