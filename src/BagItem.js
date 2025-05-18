@@ -32,7 +32,7 @@ const Bagitem = ({ id, title, quantity, price, rating, forReview }) => {
     const fetchImg = async () => {
       try {
         const resp = await fetch(
-          `https://buynestbackend-production.up.railway.app/api/product/${id}/image`,
+          `http://localhost:8080/api/product/${id}/image`,
           {
             method: "GET",
             headers: {

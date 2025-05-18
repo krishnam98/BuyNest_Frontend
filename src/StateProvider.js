@@ -182,15 +182,12 @@ export const StateProvider = ({ children }) => {
     const token = localStorage.getItem("token");
     console.log("fetching");
     try {
-      const resp = await fetch(
-        "https://buynestbackend-production.up.railway.app/cart/getCartItems",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const resp = await fetch("http://localhost:8080/cart/getCartItems", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (resp.status === 401) {
         // Token expired or invalid
@@ -241,15 +238,12 @@ export const StateProvider = ({ children }) => {
     const token = localStorage.getItem("token");
 
     try {
-      const resp = await fetch(
-        `https://buynestbackend-production.up.railway.app/cart/add/${id}`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const resp = await fetch(`http://localhost:8080/cart/add/${id}`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (resp.status === 401) {
         // Token expired or invalid
@@ -280,15 +274,12 @@ export const StateProvider = ({ children }) => {
     const token = localStorage.getItem("token");
 
     try {
-      const resp = await fetch(
-        `https://buynestbackend-production.up.railway.app/cart/delete/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const resp = await fetch(`http://localhost:8080/cart/delete/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (resp.status === 401) {
         // Token expired or invalid

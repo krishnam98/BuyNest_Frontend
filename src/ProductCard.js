@@ -48,15 +48,12 @@ const ProductCard = ({
     // API Call for adding product in Cart
     const addToCart = async () => {
       try {
-        const resp = await fetch(
-          `https://buynestbackend-production.up.railway.app/cart/add/${id}`,
-          {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const resp = await fetch(`http://localhost:8080/cart/add/${id}`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         if (resp.status === 401) {
           // Token expired or invalid
@@ -98,7 +95,7 @@ const ProductCard = ({
     const deleteProduct = async () => {
       try {
         const resp = await fetch(
-          `https://buynestbackend-production.up.railway.app/api/deleteProduct/${id}`,
+          `http://localhost:8080/api/deleteProduct/${id}`,
           {
             method: "DELETE",
             headers: {

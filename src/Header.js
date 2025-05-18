@@ -33,7 +33,7 @@ function Header() {
     setListVisibility(e.target.value.length > 0);
     const fetchSearchItems = async () => {
       const resp = await fetch(
-        `https://buynestbackend-production.up.railway.app/api/searchProduct/${e.target.value}`,
+        `http://localhost:8080/api/searchProduct/${e.target.value}`,
         {
           method: "GET",
           headers: {

@@ -19,7 +19,7 @@ const SellerPanel = () => {
       try {
         setFetching(true);
         const resp = await fetch(
-          "https://buynestbackend-production.up.railway.app/api/getSellerProducts",
+          "http://localhost:8080/api/getSellerProducts",
           {
             method: "GET",
             headers: {
@@ -53,7 +53,7 @@ const SellerPanel = () => {
     const fetchSellerOrders = async () => {
       try {
         const resp = await fetch(
-          "https://buynestbackend-production.up.railway.app/order/getSellerOrders",
+          "http://localhost:8080/order/getSellerOrders",
           {
             method: "GET",
             headers: {
