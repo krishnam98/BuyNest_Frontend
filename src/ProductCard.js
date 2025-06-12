@@ -1,14 +1,15 @@
-import { useContext } from "react";
+import React, { useState, useContext } from "react";
 import "./ProductCard.css";
-import { TiStar } from "react-icons/ti";
 import { useNavigate } from "react-router-dom";
 import { stateContext } from "./StateProvider";
 import { toast } from "react-toastify";
 import { MdOutlineDelete } from "react-icons/md";
+
 const ProductCard = ({
   id,
   title,
   description,
+  category,
   price,
   rating,
   sellerName,
@@ -23,26 +24,26 @@ const ProductCard = ({
   date,
   deleted,
 }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
   const imgsrc = `data:${imageType};base64,${imageData}`;
   const { addItems, deleteItems } = useContext(stateContext);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-  console.log(id);
 
   const getDate = (date) => {
     let timeStamp = date;
-
     const newDate = new Date(timeStamp);
     const day = String(newDate.getUTCDate()).padStart(2, "0");
     const month = String(newDate.getUTCMonth()).padStart(2, "0");
     const year = newDate.getUTCFullYear();
-
     const formattedDate = `${day}-${month}-${year}`;
     return formattedDate;
   };
 
   const handleAdd = () => {
-    //  Adding in Frontend
+    // Adding in Frontend
     addItems(id, title, price, rating);
 
     // API Call for adding product in Cart
@@ -61,7 +62,6 @@ const ProductCard = ({
           localStorage.removeItem("token"); // Remove invalid token
           deleteItems(id); // in case of error remove from frontend
           navigate("/login");
-
           return;
         }
 
@@ -120,104 +120,114 @@ const ProductCard = ({
   };
 
   return (
-    <>
-      <div className="Card">
-        {/* image */}
+    <div
+      className={`card ${isHovered ? "card-hovered" : ""}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Product Image */}
+      <div className="card-image-container" onClick={() => handleClick(id)}>
         <img
           src={imgsrc}
-          alt="Product Img"
-          className="card_img"
-          onClick={() => {
-            handleClick(id);
-          }}
+          alt={title}
+          className="card-image"
+          onError={() => setImageError(true)}
         />
-        {/* section1 - product name, Rating */}
-        <div className="card_section1">
-          <div className="card_section1_title">{title}</div>
-          <div className="card_section1_Rating">
-            <TiStar color="white" />
-            <span className="card_section1_rating"> {rating}</span>
+        {imageError && (
+          <div className="image-error">
+            <div className="image-error-text">No Image</div>
+          </div>
+        )}
+      </div>
+
+      {/* Card Content */}
+      <div className="card-content">
+        {/* Title and Rating */}
+        <div className="card-header">
+          <h3 className="card-title" onClick={() => handleClick(id)}>
+            {title}
+          </h3>
+          <div className="card-rating">
+            <span className="star-icon">★</span>
+            <span className="rating-text">{rating}</span>
           </div>
         </div>
 
-        {/* section2 - desc/Address */}
-        <div className="card_section2">
+        {/* Description/Address/Category */}
+        <div className="card-description">
+          {forOrder ? (
+            <div>
+              <span className="address-label">Delivery Address: </span>
+              {`${Address.houseNo}, ${Address.lineOne}, ${Address.linetwo}`}
+            </div>
+          ) : forSeller ? (
+            description
+          ) : (
+            <div className="product-category">{category || "GENERAL"}</div>
+          )}
+        </div>
+
+        {/* Seller Info/Order Info */}
+        <div className="card-info">
           {forOrder ? (
             <>
-              <b>Delivery Address: </b>
-              {`${Address.houseNo},${Address.lineOne},${Address.linetwo}`}
+              <span>
+                <span className="info-label">Created:</span> {getDate(date)}
+              </span>
+              <span className="quantity">×{quantity}</span>
             </>
           ) : (
-            `${description}`
-          )}
-        </div>
-        {/* section3 - sold by/Created On */}
-        <div className="card_section3">
-          {forOrder ? (
-            <div className="orderCard_Section3">
-              <span>
-                <b>Created On:</b> {`${getDate(date)}`}
-              </span>
-              <b>{`x${quantity}`}</b>
-            </div>
-          ) : (
-            <div className="orderCard_Section3">
-              <span>
-                <b>Sold By: </b> {`${sellerName}`}
-              </span>
-              {forOrder_Buyer && <b>{`x${quantity}`}</b>}
-            </div>
+            <>
+              {!forSeller ? (
+                <span>
+                  <span className="info-label">Sold by:</span> {sellerName}
+                </span>
+              ) : (
+                <div className="product-category">{category || "GENERAL"}</div>
+              )}
+
+              {forOrder_Buyer && <span className="quantity">×{quantity}</span>}
+            </>
           )}
         </div>
 
-        {/* section4 - price, buttons */}
-        <div className="card_section4">
-          <span className="card_section4_price">₹{price} </span>
+        {/* Price and Actions */}
+        <div className="card-footer">
+          <div className="card-price">
+            ₹{parseInt(price).toLocaleString("en-IN")}
+          </div>
 
+          {/* Regular Product Actions */}
           {!forSeller && !forOrder && !forOrder_Buyer && (
-            <div className="card_section4_btns">
-              <button
-                className="coloredBtn"
-                onClick={() => {
-                  handleAdd();
-                }}
-              >
-                Add To Cart
-              </button>
-            </div>
+            <button onClick={handleAdd} className="btn-primary">
+              🛒 Add to Cart
+            </button>
           )}
+
+          {/* Seller Actions */}
           {forSeller && (
-            <div className="card_section4_btns">
-              <button
-                className="otherBtn"
-                onClick={() => {
-                  handleDelete();
-                }}
-              >
+            <div className="btn-group">
+              <button onClick={handleDelete} className="btn-delete">
                 <MdOutlineDelete />
               </button>
-
-              <button
-                className="coloredBtnForSeller"
-                onClick={() => {
-                  handleUpdate();
-                }}
-              >
+              <button onClick={handleUpdate} className="btn-update">
                 Update
               </button>
             </div>
           )}
-          {forOrder && (
-            <span className="orderId">{`OrderID: #${orderId}`}</span>
-          )}
+
+          {/* Order ID */}
+          {forOrder && <div className="order-id">Order ID: #{orderId}</div>}
         </div>
-        {deleted && (
-          <div className="overlay">
-            <span className="overlayText">DELETED</span>
-          </div>
-        )}
       </div>
-    </>
+
+      {/* Deleted Overlay */}
+      {deleted && (
+        <div className="deleted-overlay">
+          <span className="deleted-text">DELETED</span>
+        </div>
+      )}
+    </div>
   );
 };
 

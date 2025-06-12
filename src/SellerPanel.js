@@ -128,6 +128,7 @@ const SellerPanel = () => {
                     <ProductCard
                       id={item.id}
                       title={item.name}
+                      category={item.category}
                       description={item.description}
                       price={item.price}
                       rating={item.rating}

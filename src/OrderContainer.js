@@ -51,6 +51,7 @@ function OrderContainer({ info }) {
             title={item.productDTO.name}
             price={item.productDTO.price}
             description={item.productDTO.description}
+            category={item.productDTO.category}
             rating={item.productDTO.rating}
             imageData={item.productDTO.imageData}
             imageType={item.productDTO.imageType}

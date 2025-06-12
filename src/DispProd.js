@@ -1,23 +1,64 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./DispProd.css";
 import { stateContext } from "./StateProvider";
 import { toast } from "react-toastify";
 import LoaderNew from "./LoaderNew";
+import { FaStar } from "react-icons/fa";
+import { Star } from "lucide-react";
 
 function DispProd() {
   const { productID } = useParams();
   const [product, setProduct] = useState();
   const [fetching, setFetching] = useState(false);
   const [url, setUrl] = useState("");
-  const { addItems } = useContext(stateContext);
+  const { addItems, deleteItems } = useContext(stateContext);
   const navigate = useNavigate();
-  console.log(productID);
-
   const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
 
   const handleAdd = () => {
+    // Adding in Frontend
     addItems(product?.id, product?.title, product?.price, product?.rating);
+
+    // API Call for adding product in Cart
+    const addToCart = async () => {
+      try {
+        const resp = await fetch(
+          `http://localhost:8080/cart/add/${product?.id}`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (resp.status === 401) {
+          // Token expired or invalid
+          console.log("Token expired. Redirecting to login...");
+          localStorage.removeItem("token"); // Remove invalid token
+          deleteItems(product?.id); // in case of error remove from frontend
+          navigate("/login");
+          return;
+        }
+
+        if (resp.ok) {
+          toast.success("Added to Cart");
+          console.log("Added to cart");
+        }
+
+        if (!resp.ok) {
+          throw new Error(`Error ${resp.status}`);
+        }
+      } catch (error) {
+        toast.error("An Error Occured! ");
+        console.log("error!");
+        deleteItems(product?.id); // in case of error remove from frontend
+      }
+    };
+
+    addToCart();
   };
 
   useEffect(() => {
@@ -42,17 +83,13 @@ function DispProd() {
           return;
         }
 
-        if (!resp.ok) {
-          throw new Error("Somthing went wrong!");
-        }
-
+        if (!resp.ok) throw new Error("Something went wrong!");
         const jsonresp = await resp.json();
-        console.log(jsonresp);
         setProduct(jsonresp);
-        setFetching(false);
       } catch (error) {
-        toast.error("Something Went Wrong!");
-        console.log(error);
+        toast.error("Something went wrong!");
+        console.error(error);
+      } finally {
         setFetching(false);
       }
     };
@@ -76,64 +113,67 @@ function DispProd() {
           return;
         }
 
-        if (!resp.ok) {
-          throw new Error("Somthing went wrong!");
-        }
-
-        // console.log("resp>>>", resp);
+        if (!resp.ok) throw new Error("Something went wrong!");
         const blobResp = await resp.blob();
-        // console.log(blobResp);
         const urlResp = URL.createObjectURL(blobResp);
-        // console.log(urlResp);
         setUrl(urlResp);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
 
     fetchProduct();
     fetchImg();
-  }, []);
+  }, [productID, navigate, token]);
+
   return (
-    <div className="prod__page__container">
+    <div className="modal-overlay">
       {fetching && <LoaderNew />}
-      <div className="image_container">
-        <img src={url} alt="" className="img" />
-      </div>
-      <div className="detail__container">
-        <div className="title">
-          <p className="name">{product?.name}</p>
-          <p className="desc">{product?.description}</p>
-          <p>
-            <b>Brand:</b> {product?.brand}
-          </p>
-          <p>
-            <b>Seller:</b> {product?.sellerName}
-          </p>
-          <p>
-            <b>Category:</b> {product?.category}
-          </p>
+      <div className="modal-content">
+        <div className="modal-image">
+          <img src={url} alt="product" />
         </div>
+        <div className="modal-details">
+          <h2 className="product-title">{product?.name}</h2>
+          <p className="product-description">{product?.description}</p>
 
-        <div className="rating">
-          {" "}
-          <b>Rating:</b>{" "}
-          {Array(product?.rating)
-            .fill()
-            .map((i) => (
-              <p>⭐</p>
-            ))}
-        </div>
+          <div className="product-meta">
+            <span>
+              <strong className="product-meta-h">Brand:</strong>{" "}
+              {product?.brand}
+            </span>
+            <span>
+              <strong className="product-meta-h">Category:</strong>{" "}
+              {product?.category}
+            </span>
+          </div>
 
-        <p>
-          {" "}
-          <b className="head">Price:</b>{" "}
-          <span className="value">{product?.price}</span>
-        </p>
-        <div className="btnDiv">
-          <button onClick={handleAdd} className="addtoCart">
-            add to cart
-          </button>
+          <div className="product-meta">
+            <p className="product-seller">
+              <strong className="product-meta-h">Seller:</strong>{" "}
+              {product?.sellerName}
+            </p>
+            <div className="product-rating">
+              <strong className="product-meta-h">Rating:</strong>
+              {Array(product?.rating)
+                .fill()
+                .map((_, i) => (
+                  <FaStar color="#ffc107" />
+                ))}
+            </div>
+          </div>
+
+          <div className="product-footer">
+            <p className="product-price">
+              <strong>Price:</strong> ₹{product?.price}
+            </p>
+
+            {role === "USER" && (
+              <button className="add-cart-btn" onClick={handleAdd}>
+                Add to Cart
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import LoaderNew from "./LoaderNew";
 import Cropper from "react-easy-crop";
-import getCroppedImg from "./cropImage"; // We will create this utility.
+import getCroppedImg from "./cropImage";
 import { v4 as uuidv4 } from "uuid";
 
 function AddProduct() {
@@ -120,7 +120,6 @@ function AddProduct() {
 
   return (
     <div className="addProduct_container">
-      <span className="main_heading">Add Your Product</span>
       {imageSrc && (
         <div className="cropper-container">
           <div className="cropper">
@@ -167,6 +166,7 @@ function AddProduct() {
           <img src={url ? url : "package.png"} />
         </div>
         <form className="form">
+          <span className="form-heading">Product Details</span>
           <div className="pair_input">
             <div className="inp">
               <span className="heading ">Name</span>

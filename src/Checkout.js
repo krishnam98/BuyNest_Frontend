@@ -7,12 +7,19 @@ import EmptyMessge from "./EmptyMessge.js";
 import FlipMove from "react-flip-move";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { jwtDecode } from "jwt-decode";
 
 function Checkout() {
   const { getCartItems, bagItems, user } = useContext(stateContext);
+  const [username, setUsername] = useState("");
   const navigate = useNavigate();
   console.log(bagItems);
+  const token = localStorage.getItem("token");
   useEffect(() => {
+    if (token) {
+      const decode = jwtDecode(token);
+      setUsername(decode.sub);
+    }
     const fetchingCartItems = async () => {
       let val = await getCartItems();
       console.log(val?.message);
@@ -27,7 +34,7 @@ function Checkout() {
     <div className="checkout">
       <div className="checkout__left">
         <div className="cartItems">
-          <h3>Hello, {user?._delegate.email}</h3>
+          <h3>Hello, {username}</h3>
           <h2 className="checkout__title"> your shopping cart</h2>
 
           {bagItems.length === 0 ? (

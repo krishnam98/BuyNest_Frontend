@@ -79,6 +79,7 @@ function Home() {
                   id={item.id}
                   title={item.name}
                   description={item.description}
+                  category={item.category}
                   price={item.price}
                   rating={item.rating}
                   sellerName={item.sellerName}

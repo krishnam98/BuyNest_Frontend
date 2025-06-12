@@ -26,6 +26,12 @@ function Header() {
 
   const handleStyle = () => {
     setClass(!classState);
+    console.log("clicked");
+  };
+
+  const handleClick = (id) => {
+    setListVisibility(false);
+    navigate(`/dispProduct/${id}`);
   };
 
   const handleInputChange = (e) => {
@@ -42,7 +48,7 @@ function Header() {
         }
       );
       const jsonResp = await resp.json();
-      // console.log(jsonResp);
+      console.log(jsonResp);
       setSearchList(jsonResp);
     };
 
@@ -95,8 +101,8 @@ function Header() {
       <div className="header">
         <img
           className="header__logo"
-          src="buyNest.png"
-          alt="amazon-logo"
+          src="BuyNest Login.png"
+          alt="BUYNEST-logo"
           onClick={() => {
             navigate("/");
           }}
@@ -107,13 +113,17 @@ function Header() {
             <input
               className="header__searchInput"
               type="text"
+              placeholder="Search Products"
               onChange={handleInputChange}
               value={value}
             />
             {isListVisible && (
               <ul className="header_SearchList">
                 {searchList.map((item) => (
-                  <li className="header__listItem">
+                  <li
+                    className="header__listItem"
+                    onClick={() => handleClick(item.id)}
+                  >
                     <SearchIcon />
                     <span className="listSpan">{item.name}</span>
                   </li>
@@ -141,14 +151,14 @@ function Header() {
           <h1 className="heading_seller">Seller Dashboard</h1>
         )} */}
 
-        <div className="menu">
+        <div className="menu" onClick={handleStyle}>
           <button
             className={classState ? "button-menu styled" : "button-menu"}
             onClick={handleStyle}
           >
-            <span></span>
-            <span></span>
-            <span></span>
+            <span onClick={handleStyle}></span>
+            <span onClick={handleStyle}></span>
+            <span onClick={handleStyle}></span>
           </button>
         </div>
 
@@ -186,12 +196,21 @@ function Header() {
           )}
 
           {role === "SELLER" && (
-            <button
-              className="Header_add_button"
-              onClick={() => navigate("/addProduct")}
-            >
-              Add Product
-            </button>
+            <div className="header_btns_div">
+              <button
+                className="Header_add_button"
+                onClick={() => navigate("/addProduct")}
+              >
+                Add Product
+              </button>
+
+              <button
+                className="Header_add_button"
+                onClick={() => navigate("/analyticsPage")}
+              >
+                Analytics
+              </button>
+            </div>
           )}
 
           {role === "USER" && (
@@ -213,26 +232,28 @@ function Header() {
       <div className="menu-list"></div>
       <ul className={classState ? "list styled" : "list"}>
         <li>
-          <Link to={!user && "/login"} className="header__link">
+          <div className="header__link">
             <div className="header__option ">
               <span className="header__optionLineOne">
-                {user ? user?._delegate.email : "Hello Guest"}
+                {username ? username : "Hello Guest"}
               </span>
 
-              <span className="header__optionLineTwo">
-                {user ? "Sign Out" : "Sign In"}
+              <span className="header__optionLineTwo" onClick={handleLogOut}>
+                {username ? "Sign Out" : "Sign In"}
               </span>
             </div>
-          </Link>
+          </div>
         </li>
         <li>
-          <Link to="/orders" className="header__link">
-            <div className="header__option link">
-              <span className="header__optionLineOne">Returns</span>
+          {role === "USER" && (
+            <Link to="/orders" className="header__link">
+              <div className="header__option link">
+                <span className="header__optionLineOne">Returns</span>
 
-              <span className="header__optionLineTwo">& Orders</span>
-            </div>
-          </Link>
+                <span className="header__optionLineTwo">& Orders</span>
+              </div>
+            </Link>
+          )}
         </li>
       </ul>
     </>

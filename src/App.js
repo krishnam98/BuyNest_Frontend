@@ -26,6 +26,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Register from "./Register.js";
 import RoleBasedComp from "./RoleBasedComp.js";
+import SellerAnalytics from "./SellerAnalytics.js";
 
 const promise = loadStripe(
   "pk_test_51Q1nOF00ra16hNa14LUzKBlid6oM7JCg2f2aK8m6CPYcZzaSTIKVvgfFblqRGLeg9nkd1ofs7ohVYuEwRgGE5WTF00kqo7Knez"
@@ -62,9 +63,16 @@ function App() {
     { path: "/login", element: [<Login />] },
     { path: "/register", element: [<Register />] },
     { path: "/checkout", element: [<Header />, <Checkout />] },
-    { path: "/dispProduct/:productID", element: [<Header />, <DispProd />] },
-    { path: "/addProduct", element: [<AddProduct />] },
-    { path: "/updateProduct/:productID", element: [<UpdateProduct />] },
+    {
+      path: "/dispProduct/:productID",
+      element: [<Header />, <DispProd />],
+    },
+    { path: "/analyticsPage", element: [<SellerAnalytics />] },
+    { path: "/addProduct", element: [<Header />, <AddProduct />] },
+    {
+      path: "/updateProduct/:productID",
+      element: [<Header />, <UpdateProduct />],
+    },
     { path: "/SellerPanel", element: [<SellerPanel />] },
   ]);
   return (

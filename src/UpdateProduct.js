@@ -202,12 +202,12 @@ function UpdateProduct() {
 
   return (
     <div className="addProduct_container">
-      <span className="main_heading">Update Your Product</span>
       <div className="form_container">
         <div className="img">
           <img src={url ? url : "package.png"} />
         </div>
         <form className="form">
+          <span className="form-heading">Update Details</span>
           <div className="pair_input">
             <div className="inp">
               <span className="heading ">Name</span>

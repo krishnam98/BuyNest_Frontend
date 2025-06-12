@@ -66,6 +66,6 @@
   display: flex;
   gap: 20px;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: start;
   overflow-x: scroll;
 }
