@@ -54,11 +54,14 @@ function Payment() {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/order/createOrder", {
-        method: "POST",
-        headers: headers,
-        body: JSON.stringify(body),
-      });
+      const response = await fetch(
+        "https://flowing-capsule-462810-j2.df.r.appspot.com/order/createOrder",
+        {
+          method: "POST",
+          headers: headers,
+          body: JSON.stringify(body),
+        }
+      );
 
       console.log(response.status);
       setProcessing(false);

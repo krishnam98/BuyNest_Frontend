@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   PieChart,
@@ -19,78 +19,104 @@ import { FaRupeeSign } from "react-icons/fa";
 
 const SellerAnalytics = () => {
   const navigate = useNavigate();
-  const [fetching, setFetching] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [hasInitialized, setHasInitialized] = useState(false); // Prevent multiple calls
 
   useEffect(() => {
+    console.log("useEffect triggered, hasInitialized:", hasInitialized); // Debug log
+
+    // Prevent multiple initializations
+    if (hasInitialized) {
+      console.log("Already initialized, skipping...");
+      return;
+    }
+
     const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login");
       return;
     }
 
-    const fetchSellerProducts = async () => {
-      try {
-        setFetching(true);
-        const resp = await fetch(
-          "http://localhost:8080/api/getSellerProducts",
-          {
-            method: "GET",
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+    let isMounted = true; // Prevent state updates if component unmounts
 
-        if (resp.status === 401) {
+    const fetchData = async () => {
+      try {
+        console.log("Starting API calls..."); // Debug log
+        if (isMounted) {
+          setLoading(true);
+          setHasInitialized(true);
+        }
+
+        // Run both API calls in parallel
+        const [productsResponse, ordersResponse] = await Promise.all([
+          fetch(
+            "https://flowing-capsule-462810-j2.df.r.appspot.com/api/getSellerProducts",
+            {
+              method: "GET",
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          ),
+          fetch(
+            "https://flowing-capsule-462810-j2.df.r.appspot.com/order/getSellerOrders",
+            {
+              method: "GET",
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          ),
+        ]);
+
+        console.log("API calls completed"); // Debug log
+
+        // Check for authentication errors
+        if (productsResponse.status === 401 || ordersResponse.status === 401) {
           localStorage.removeItem("token");
-          toast.error("Logged Out!");
+          toast.error("Session expired. Please login again.");
           navigate("/login");
           return;
         }
 
-        if (!resp.ok) throw new Error("Failed to fetch products");
-
-        const respJson = await resp.json();
-        setProducts(respJson);
-        setFetching(false);
-      } catch (error) {
-        toast.error("Something went wrong fetching products!");
-        setFetching(false);
-      }
-    };
-
-    const fetchSellerOrders = async () => {
-      try {
-        const resp = await fetch(
-          "http://localhost:8080/order/getSellerOrders",
-          {
-            method: "GET",
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-
-        if (resp.status === 401) {
-          localStorage.removeItem("token");
-          toast.error("Logged Out!");
-          navigate("/login");
-          setFetching(false);
-          return;
+        // Check if responses are ok
+        if (!productsResponse.ok) {
+          throw new Error("Failed to fetch products");
+        }
+        if (!ordersResponse.ok) {
+          throw new Error("Failed to fetch orders");
         }
 
-        if (!resp.ok) throw new Error("Failed to fetch orders");
+        // Parse responses
+        const productsData = await productsResponse.json();
+        const ordersData = await ordersResponse.json();
 
-        const jsonResp = await resp.json();
-        setOrders(jsonResp);
-        setFetching(false);
+        console.log("Data parsed, updating state..."); // Debug log
+
+        // Set data only if component is still mounted
+        if (isMounted) {
+          setProducts(productsData || []);
+          setOrders(ordersData || []);
+        }
       } catch (error) {
-        toast.error("Something went wrong fetching orders!");
-        setFetching(false);
+        console.error("Error fetching data:", error);
+        if (isMounted) {
+          toast.error("Failed to load analytics data. Please try again.");
+        }
+      } finally {
+        // Always set loading to false, regardless of success or failure
+        console.log("Setting loading to false"); // Debug log
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
-    fetchSellerProducts();
-    fetchSellerOrders();
-  }, [navigate]);
+    fetchData();
+
+    // Cleanup function
+    return () => {
+      isMounted = false;
+    };
+  }, []); // Remove navigate dependency
 
   // Calculate analytics data
   const analyticsData = useMemo(() => {
@@ -205,7 +231,7 @@ const SellerAnalytics = () => {
           fill="#333"
           textAnchor="middle"
           dominantBaseline="central"
-          fontSize={14} // base size before scaling
+          fontSize={14}
         >
           {percentage}%
         </text>
@@ -215,7 +241,9 @@ const SellerAnalytics = () => {
 
   // Calculate totals for summary cards
   const totalProducts = products.filter((p) => !p.deleted).length;
-  const totalOrders = orders.filter((p) => !p.productDTO.deleted).length;
+  const totalOrders = orders.filter(
+    (order) => order.productDTO && !order.productDTO.deleted
+  ).length;
   const totalRevenue = analyticsData.reduce(
     (sum, cat) => sum + cat.totalRevenue,
     0
@@ -225,7 +253,8 @@ const SellerAnalytics = () => {
     0
   );
 
-  if (fetching) {
+  // Show loading state
+  if (loading) {
     return (
       <div className="loading-container">
         <div className="loading-spinner"></div>
@@ -234,7 +263,8 @@ const SellerAnalytics = () => {
     );
   }
 
-  if (products.length === 0 && orders.length === 0 && !fetching) {
+  // Show empty state
+  if (products.length === 0 && orders.length === 0) {
     return (
       <div className="empty-state">
         <div className="empty-content">

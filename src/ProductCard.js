@@ -49,12 +49,15 @@ const ProductCard = ({
     // API Call for adding product in Cart
     const addToCart = async () => {
       try {
-        const resp = await fetch(`http://localhost:8080/cart/add/${id}`, {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const resp = await fetch(
+          `https://flowing-capsule-462810-j2.df.r.appspot.com/cart/add/${id}`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (resp.status === 401) {
           // Token expired or invalid
@@ -95,7 +98,7 @@ const ProductCard = ({
     const deleteProduct = async () => {
       try {
         const resp = await fetch(
-          `http://localhost:8080/api/deleteProduct/${id}`,
+          `https://flowing-capsule-462810-j2.df.r.appspot.com/api/deleteProduct/${id}`,
           {
             method: "DELETE",
             headers: {

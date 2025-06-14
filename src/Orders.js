@@ -17,12 +17,15 @@ function Orders() {
       const token = localStorage.getItem("token");
       try {
         setFetching(true);
-        const resp = await fetch("http://localhost:8080/order/getOrders", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const resp = await fetch(
+          "https://flowing-capsule-462810-j2.df.r.appspot.com/order/getOrders",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (resp.status === 401) {
           // Token expired or invalid

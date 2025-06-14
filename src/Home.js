@@ -22,13 +22,16 @@ function Home() {
     const fetchList = async () => {
       try {
         setFetching(true);
-        const resp = await fetch("http://localhost:8080/api/products", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "Application/json",
-          },
-        });
+        const resp = await fetch(
+          "https://flowing-capsule-462810-j2.df.r.appspot.com/api/products",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "Application/json",
+            },
+          }
+        );
         setFetching(false);
 
         if (resp.status === 401) {

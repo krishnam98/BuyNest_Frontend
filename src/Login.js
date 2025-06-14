@@ -24,13 +24,16 @@ function Login() {
 
     const login = async () => {
       setFetching(true);
-      const resp = await fetch("http://localhost:8080/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
+      const resp = await fetch(
+        "https://flowing-capsule-462810-j2.df.r.appspot.com/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(user),
+        }
+      );
 
       console.log(resp);
       if (resp.status === 401) {
@@ -72,13 +75,16 @@ function Login() {
 
     const Register = async () => {
       setFetchingForReg(true);
-      const resp = await fetch("http://localhost:8080/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
+      const resp = await fetch(
+        "https://flowing-capsule-462810-j2.df.r.appspot.com/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(user),
+        }
+      );
 
       setFetchingForReg(false);
       console.log(resp);

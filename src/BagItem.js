@@ -32,7 +32,7 @@ const Bagitem = ({ id, title, quantity, price, rating, forReview }) => {
     const fetchImg = async () => {
       try {
         const resp = await fetch(
-          `http://localhost:8080/api/product/${id}/image`,
+          `https://flowing-capsule-462810-j2.df.r.appspot.com/api/product/${id}/image`,
           {
             method: "GET",
             headers: {

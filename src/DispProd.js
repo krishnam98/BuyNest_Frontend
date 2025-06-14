@@ -25,7 +25,7 @@ function DispProd() {
     const addToCart = async () => {
       try {
         const resp = await fetch(
-          `http://localhost:8080/cart/add/${product?.id}`,
+          `https://flowing-capsule-462810-j2.df.r.appspot.com/cart/add/${product?.id}`,
           {
             method: "POST",
             headers: {
@@ -66,7 +66,7 @@ function DispProd() {
       try {
         setFetching(true);
         const resp = await fetch(
-          `http://localhost:8080/api/product/${productID}`,
+          `https://flowing-capsule-462810-j2.df.r.appspot.com/api/product/${productID}`,
           {
             method: "GET",
             headers: {
@@ -97,7 +97,7 @@ function DispProd() {
     const fetchImg = async () => {
       try {
         const resp = await fetch(
-          `http://localhost:8080/api/product/${productID}/image`,
+          `https://flowing-capsule-462810-j2.df.r.appspot.com/api/product/${productID}/image`,
           {
             method: "GET",
             headers: {
