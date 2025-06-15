@@ -61,6 +61,7 @@ function Login() {
     } catch (error) {
       console.log(error);
       toast.error("something Went Wrong! ");
+      setFetching(false);
       return;
     }
   };
@@ -117,7 +118,7 @@ function Login() {
         <img className="login__logo" src="BuyNest Login.png" alt="Login img" />
       </Link>
       <div className="login__container">
-        <h1>Sign in</h1>
+        <h1>Log in</h1>
         <form onSubmit={(e) => handleSubmit(e)}>
           <h5>Username / Agency Name</h5>
           <input type="text" ref={email} />

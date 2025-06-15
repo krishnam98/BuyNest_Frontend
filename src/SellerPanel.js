@@ -5,6 +5,8 @@ import Product from "./Product";
 import { toast } from "react-toastify";
 import Bagitem from "./BagItem";
 import ProductCard from "./ProductCard";
+import LoaderNew from "./LoaderNew";
+import Loader from "./Loader";
 
 const SellerPanel = () => {
   const navigate = useNavigate();
@@ -97,6 +99,7 @@ const SellerPanel = () => {
       </header> */}
 
       <div className="sp_product_management">
+        {fetching && <Loader />}
         <div className="sp_section">
           <h2
             className="sp_section_title"

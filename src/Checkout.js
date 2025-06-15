@@ -8,10 +8,12 @@ import FlipMove from "react-flip-move";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { jwtDecode } from "jwt-decode";
+import LoaderNew from "./LoaderNew.js";
 
 function Checkout() {
   const { getCartItems, bagItems, user } = useContext(stateContext);
   const [username, setUsername] = useState("");
+  const [fetching, setFetching] = useState(false);
   const navigate = useNavigate();
   console.log(bagItems);
   const token = localStorage.getItem("token");
@@ -21,11 +23,13 @@ function Checkout() {
       setUsername(decode.sub);
     }
     const fetchingCartItems = async () => {
+      setFetching(true);
       let val = await getCartItems();
       console.log(val?.message);
       if (val?.message === 401) {
         navigate("/login");
       }
+      setFetching(false);
     };
 
     fetchingCartItems();
@@ -41,14 +45,20 @@ function Checkout() {
             <EmptyMessge />
           ) : (
             bagItems.map((item) => (
-              <Bagitem
-                id={item.id}
-                title={item.title}
-                price={item.price}
-                rating={item.rating}
-                quantity={item.quantity}
-                forReview={false}
-              />
+              <>
+                {fetching ? (
+                  <LoaderNew />
+                ) : (
+                  <Bagitem
+                    id={item.id}
+                    title={item.title}
+                    price={item.price}
+                    rating={item.rating}
+                    quantity={item.quantity}
+                    forReview={false}
+                  />
+                )}
+              </>
             ))
           )}
         </div>

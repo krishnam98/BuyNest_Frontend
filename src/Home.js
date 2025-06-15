@@ -11,7 +11,7 @@ import ProductCard from "./ProductCard.js";
 function Home() {
   const { getCartItems } = useContext(stateContext);
   const [prodList, setProdList] = useState([]);
-  const [Fetching, setFetching] = useState(true);
+  const [Fetching, setFetching] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -59,15 +59,15 @@ function Home() {
     // checking if token is there only then fetch otherwise move to login Page
     if (token) {
       fetchList();
-      setFetching(false);
+      // setFetching(false);
     } else {
       navigate("/login");
     }
   }, []);
   return (
     <div className="home">
+      {Fetching && <Loader />}
       <div className="home__container">
-        {Fetching && <LoaderNew />}
         <div className="home__prod__container">
           {prodList.map(
             (item) =>

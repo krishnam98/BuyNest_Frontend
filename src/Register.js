@@ -71,6 +71,7 @@ function Register() {
     } catch (error) {
       console.log(error);
       toast.error("something Went Wrong! ");
+      setFetching(false);
       return;
     }
   };
@@ -113,6 +114,7 @@ function Register() {
         localStorage.setItem("role", jsonResp.role);
 
         console.log(jsonResp);
+        setFetchingForReg(false);
         navigate("/");
       }
     };
@@ -123,6 +125,7 @@ function Register() {
     } catch (error) {
       console.log(error);
       toast.error("something Went Wrong! ");
+      setFetchingForReg(false);
       return;
     }
   };
@@ -160,7 +163,7 @@ function Register() {
       </Link>
       <div className="login__container">
         <h1>Sign in</h1>
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form>
           <h5>Full Name</h5>
           <input type="text" />
           <div className="checkbox_div" onClick={handleCheck}>
