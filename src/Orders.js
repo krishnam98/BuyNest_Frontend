@@ -18,7 +18,7 @@ function Orders() {
       try {
         setFetching(true);
         const resp = await fetch(
-          "https://flowing-capsule-462810-j2.df.r.appspot.com/order/getOrders",
+          "https://buynestbackend-latest.onrender.com/order/getOrders",
           {
             method: "GET",
             headers: {

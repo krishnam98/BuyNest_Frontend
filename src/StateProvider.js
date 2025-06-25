@@ -183,7 +183,7 @@ export const StateProvider = ({ children }) => {
     console.log("fetching");
     try {
       const resp = await fetch(
-        "https://flowing-capsule-462810-j2.df.r.appspot.com/cart/getCartItems",
+        "https://buynestbackend-latest.onrender.com/cart/getCartItems",
         {
           method: "GET",
           headers: {
@@ -242,7 +242,7 @@ export const StateProvider = ({ children }) => {
 
     try {
       const resp = await fetch(
-        `https://flowing-capsule-462810-j2.df.r.appspot.com/cart/add/${id}`,
+        `https://buynestbackend-latest.onrender.com/cart/add/${id}`,
         {
           method: "POST",
           headers: {
@@ -281,7 +281,7 @@ export const StateProvider = ({ children }) => {
 
     try {
       const resp = await fetch(
-        `https://flowing-capsule-462810-j2.df.r.appspot.com/cart/delete/${id}`,
+        `https://buynestbackend-latest.onrender.com/cart/delete/${id}`,
         {
           method: "DELETE",
           headers: {

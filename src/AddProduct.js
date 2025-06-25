@@ -88,7 +88,7 @@ function AddProduct() {
       try {
         setFetching(true);
         const resp = await fetch(
-          "https://flowing-capsule-462810-j2.df.r.appspot.com/api/addProduct",
+          "https://buynestbackend-latest.onrender.com/api/addProduct",
           {
             method: "POST",
             headers: {

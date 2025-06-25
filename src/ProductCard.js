@@ -50,7 +50,7 @@ const ProductCard = ({
     const addToCart = async () => {
       try {
         const resp = await fetch(
-          `https://flowing-capsule-462810-j2.df.r.appspot.com/cart/add/${id}`,
+          `https://buynestbackend-latest.onrender.com/cart/add/${id}`,
           {
             method: "POST",
             headers: {
@@ -98,7 +98,7 @@ const ProductCard = ({
     const deleteProduct = async () => {
       try {
         const resp = await fetch(
-          `https://flowing-capsule-462810-j2.df.r.appspot.com/api/deleteProduct/${id}`,
+          `https://buynestbackend-latest.onrender.com/api/deleteProduct/${id}`,
           {
             method: "DELETE",
             headers: {

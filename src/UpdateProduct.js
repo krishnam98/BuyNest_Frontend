@@ -27,7 +27,7 @@ function UpdateProduct() {
       try {
         setFetching(true);
         const resp = await fetch(
-          `https://flowing-capsule-462810-j2.df.r.appspot.com/api/product/${productID}`,
+          `https://buynestbackend-latest.onrender.com/api/product/${productID}`,
           {
             method: "GET",
             headers: {
@@ -66,7 +66,7 @@ function UpdateProduct() {
     // Fetching Image
     const fetchImg = async () => {
       const resp = await fetch(
-        `https://flowing-capsule-462810-j2.df.r.appspot.com/api/product/${productID}/image`,
+        `https://buynestbackend-latest.onrender.com/api/product/${productID}/image`,
         {
           method: "GET",
           headers: {
@@ -163,7 +163,7 @@ function UpdateProduct() {
     // Sending data
     const sendData = async () => {
       const resp = await fetch(
-        `https://flowing-capsule-462810-j2.df.r.appspot.com/api/updateProduct/${productID}`,
+        `https://buynestbackend-latest.onrender.com/api/updateProduct/${productID}`,
         {
           method: "PUT",
           headers: {

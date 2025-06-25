@@ -23,7 +23,7 @@ function Home() {
       try {
         setFetching(true);
         const resp = await fetch(
-          "https://flowing-capsule-462810-j2.df.r.appspot.com/api/products",
+          "https://buynestbackend-latest.onrender.com/api/products",
           {
             method: "GET",
             headers: {

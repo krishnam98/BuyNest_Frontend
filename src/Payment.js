@@ -55,7 +55,7 @@ function Payment() {
 
     try {
       const response = await fetch(
-        "https://flowing-capsule-462810-j2.df.r.appspot.com/order/createOrder",
+        "https://buynestbackend-latest.onrender.com/order/createOrder",
         {
           method: "POST",
           headers: headers,

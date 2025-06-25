@@ -52,14 +52,14 @@ const SellerAnalytics = () => {
         // Run both API calls in parallel
         const [productsResponse, ordersResponse] = await Promise.all([
           fetch(
-            "https://flowing-capsule-462810-j2.df.r.appspot.com/api/getSellerProducts",
+            "https://buynestbackend-latest.onrender.com/api/getSellerProducts",
             {
               method: "GET",
               headers: { Authorization: `Bearer ${token}` },
             }
           ),
           fetch(
-            "https://flowing-capsule-462810-j2.df.r.appspot.com/order/getSellerOrders",
+            "https://buynestbackend-latest.onrender.com/order/getSellerOrders",
             {
               method: "GET",
               headers: { Authorization: `Bearer ${token}` },

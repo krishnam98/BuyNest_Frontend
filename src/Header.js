@@ -39,7 +39,7 @@ function Header() {
     setListVisibility(e.target.value.length > 0);
     const fetchSearchItems = async () => {
       const resp = await fetch(
-        `https://flowing-capsule-462810-j2.df.r.appspot.com/api/searchProduct/${e.target.value}`,
+        `https://buynestbackend-latest.onrender.com/api/searchProduct/${e.target.value}`,
         {
           method: "GET",
           headers: {

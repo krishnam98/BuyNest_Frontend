@@ -18,7 +18,7 @@ function Product({ id, title, price, rating, forSeller }) {
     const addToCart = async () => {
       try {
         const resp = await fetch(
-          `https://flowing-capsule-462810-j2.df.r.appspot.com/cart/add/${id}`,
+          `https://buynestbackend-latest.onrender.com/cart/add/${id}`,
           {
             method: "POST",
             headers: {
@@ -67,7 +67,7 @@ function Product({ id, title, price, rating, forSeller }) {
     const deleteProduct = async () => {
       try {
         const resp = await fetch(
-          `https://flowing-capsule-462810-j2.df.r.appspot.com/api/deleteProduct/${id}`,
+          `https://buynestbackend-latest.onrender.com/api/deleteProduct/${id}`,
           {
             method: "DELETE",
             headers: {
@@ -95,7 +95,7 @@ function Product({ id, title, price, rating, forSeller }) {
     const fetchImg = async () => {
       try {
         const resp = await fetch(
-          `https://flowing-capsule-462810-j2.df.r.appspot.com/api/product/${id}/image`,
+          `https://buynestbackend-latest.onrender.com/api/product/${id}/image`,
           {
             method: "GET",
             headers: {

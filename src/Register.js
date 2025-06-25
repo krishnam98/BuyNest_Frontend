@@ -35,7 +35,7 @@ function Register() {
     const login = async () => {
       setFetching(true);
       const resp = await fetch(
-        "https://flowing-capsule-462810-j2.df.r.appspot.com/auth/login",
+        "https://buynestbackend-latest.onrender.com/auth/login",
         {
           method: "POST",
           headers: {
@@ -89,7 +89,7 @@ function Register() {
     const RegisterCall = async () => {
       setFetchingForReg(true);
       const resp = await fetch(
-        "https://flowing-capsule-462810-j2.df.r.appspot.com/auth/register",
+        "https://buynestbackend-latest.onrender.com/auth/register",
         {
           method: "POST",
           headers: {
@@ -138,7 +138,7 @@ function Register() {
         setAvailable(false);
         setNotAvailable(false);
         const resp = await fetch(
-          `https://flowing-capsule-462810-j2.df.r.appspot.com/auth/checkAvailUsername/${e.target.value}`
+          `https://buynestbackend-latest.onrender.com/auth/checkAvailUsername/${e.target.value}`
         );
         setCheckingAvailability(false);
         if (resp.status === 200) {
