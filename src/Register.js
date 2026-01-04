@@ -23,59 +23,6 @@ function Register() {
     setChecked(!checked);
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    const user = {
-      username: email.current.value,
-      password: password.current.value,
-    };
-    console.log(user);
-
-    const login = async () => {
-      setFetching(true);
-      const resp = await fetch(
-        "https://buynest-backend-latest-latest.onrender.com/auth/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(user),
-        }
-      );
-
-      console.log(resp);
-      if (resp.status === 401) {
-        toast.error("Wrong Credentials! ");
-        return;
-      }
-      if (!resp.ok) {
-        toast.error("something Went Wrong! ");
-        return;
-      }
-
-      const jsonResp = await resp.json();
-
-      localStorage.setItem("token", jsonResp.token);
-      localStorage.setItem("role", jsonResp.role);
-
-      console.log(jsonResp);
-      navigate("/");
-      setFetching(false);
-    };
-
-    try {
-      await login();
-      setFetching(false);
-    } catch (error) {
-      console.log(error);
-      toast.error("something Went Wrong! ");
-      setFetching(false);
-      return;
-    }
-  };
-
   const handleRegister = async (event) => {
     event.preventDefault();
 
@@ -140,18 +87,23 @@ function Register() {
         const resp = await fetch(
           `https://buynest-backend-latest-latest.onrender.com/auth/checkAvailUsername/${e.target.value}`
         );
+        console.log(resp.status);
         setCheckingAvailability(false);
         if (resp.status === 200) {
           setAvailable(true);
+          setNotAvailable(false);
         } else if (resp.status === 406) {
           setNotAvailable(true);
+          setAvailable(false);
         }
       } catch (error) {
         setCheckingAvailability(false);
+        setNotAvailable(true);
+        setAvailable(false);
         console.log(error);
       }
     };
-    if (e.target.value !== 0) {
+    if (e.target.value.trim().length > 0) {
       checkAvailabilty();
     }
   };
@@ -180,17 +132,19 @@ function Register() {
               setEmailValue(e.target.value);
             }}
           />
-          <div className="avail_check">
-            <span
-              className={`txt_check ${
-                available ? "green" : notAvailable ? "red" : ""
-              }`}
-            >
-              {(checkingAvailabilty && "checking Availability") ||
-                (available && "available") ||
-                (notAvailable && "Not Available")}
-            </span>
-          </div>
+          {emailValue.length > 0 && (
+            <div className={`avail_check`}>
+              <span
+                className={`txt_check ${
+                  available ? "green" : notAvailable ? "red" : ""
+                }`}
+              >
+                {(checkingAvailabilty && "checking Availability") ||
+                  (available && "available") ||
+                  (notAvailable && "Not Available")}
+              </span>
+            </div>
+          )}
 
           <h5>Password</h5>
           <input
