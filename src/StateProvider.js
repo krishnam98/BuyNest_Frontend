@@ -183,7 +183,7 @@ export const StateProvider = ({ children }) => {
     console.log("fetching");
     try {
       const resp = await fetch(
-        "https://buynestbackend-latest.onrender.com/cart/getCartItems",
+        "https://buynest-backend-latest-latest.onrender.com/cart/getCartItems",
         {
           method: "GET",
           headers: {
@@ -242,7 +242,7 @@ export const StateProvider = ({ children }) => {
 
     try {
       const resp = await fetch(
-        `https://buynestbackend-latest.onrender.com/cart/add/${id}`,
+        `https://buynest-backend-latest-latest.onrender.com/cart/add/${id}`,
         {
           method: "POST",
           headers: {
@@ -281,7 +281,7 @@ export const StateProvider = ({ children }) => {
 
     try {
       const resp = await fetch(
-        `https://buynestbackend-latest.onrender.com/cart/delete/${id}`,
+        `https://buynest-backend-latest-latest.onrender.com/cart/delete/${id}`,
         {
           method: "DELETE",
           headers: {

@@ -21,7 +21,7 @@ const SellerPanel = () => {
       try {
         setFetching(true);
         const resp = await fetch(
-          "https://buynestbackend-latest.onrender.com/api/getSellerProducts",
+          "https://buynest-backend-latest-latest.onrender.com/api/getSellerProducts",
           {
             method: "GET",
             headers: {
@@ -55,7 +55,7 @@ const SellerPanel = () => {
     const fetchSellerOrders = async () => {
       try {
         const resp = await fetch(
-          "https://buynestbackend-latest.onrender.com/order/getSellerOrders",
+          "https://buynest-backend-latest-latest.onrender.com/order/getSellerOrders",
           {
             method: "GET",
             headers: {

@@ -50,7 +50,7 @@ const ProductCard = ({
     const addToCart = async () => {
       try {
         const resp = await fetch(
-          `https://buynestbackend-latest.onrender.com/cart/add/${id}`,
+          `https://buynest-backend-latest-latest.onrender.com/cart/add/${id}`,
           {
             method: "POST",
             headers: {
@@ -98,7 +98,7 @@ const ProductCard = ({
     const deleteProduct = async () => {
       try {
         const resp = await fetch(
-          `https://buynestbackend-latest.onrender.com/api/deleteProduct/${id}`,
+          `https://buynest-backend-latest-latest.onrender.com/api/deleteProduct/${id}`,
           {
             method: "DELETE",
             headers: {

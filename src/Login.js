@@ -25,7 +25,7 @@ function Login() {
     const login = async () => {
       setFetching(true);
       const resp = await fetch(
-        "https://buynestbackend-latest.onrender.com/auth/login",
+        "https://buynest-backend-latest-latest.onrender.com/auth/login",
         {
           method: "POST",
           headers: {
@@ -77,7 +77,7 @@ function Login() {
     const Register = async () => {
       setFetchingForReg(true);
       const resp = await fetch(
-        "https://buynestbackend-latest.onrender.com/auth/register",
+        "https://buynest-backend-latest-latest.onrender.com/auth/register",
         {
           method: "POST",
           headers: {

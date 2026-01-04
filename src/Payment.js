@@ -55,7 +55,7 @@ function Payment() {
 
     try {
       const response = await fetch(
-        "https://buynestbackend-latest.onrender.com/order/createOrder",
+        "https://buynest-backend-latest-latest.onrender.com/order/createOrder",
         {
           method: "POST",
           headers: headers,
