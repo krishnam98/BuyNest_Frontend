@@ -42,7 +42,11 @@ function Checkout() {
           <h2 className="checkout__title"> your shopping cart</h2>
 
           {bagItems.length === 0 ? (
-            <EmptyMessge />
+            fetching ? (
+              <LoaderNew />
+            ) : (
+              <EmptyMessge />
+            )
           ) : (
             bagItems.map((item) => (
               <>
