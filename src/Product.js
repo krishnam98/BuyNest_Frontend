@@ -18,7 +18,7 @@ function Product({ id, title, price, rating, forSeller }) {
     const addToCart = async () => {
       try {
         const resp = await fetch(
-          `https://buynest-backend-latest-latest.onrender.com/cart/add/${id}`,
+          `https://buynest-backend-latest-v2-latest.onrender.com/cart/add/${id}`,
           {
             method: "POST",
             headers: {
@@ -67,7 +67,7 @@ function Product({ id, title, price, rating, forSeller }) {
     const deleteProduct = async () => {
       try {
         const resp = await fetch(
-          `https://buynest-backend-latest-latest.onrender.com/api/deleteProduct/${id}`,
+          `https://buynest-backend-latest-v2-latest.onrender.com/api/deleteProduct/${id}`,
           {
             method: "DELETE",
             headers: {
@@ -95,7 +95,7 @@ function Product({ id, title, price, rating, forSeller }) {
     const fetchImg = async () => {
       try {
         const resp = await fetch(
-          `https://buynest-backend-latest-latest.onrender.com/api/product/${id}/image`,
+          `https://buynest-backend-latest-v2-latest.onrender.com/api/product/${id}/image`,
           {
             method: "GET",
             headers: {

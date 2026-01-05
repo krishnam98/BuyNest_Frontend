@@ -25,7 +25,7 @@ function DispProd() {
     const addToCart = async () => {
       try {
         const resp = await fetch(
-          `https://buynest-backend-latest-latest.onrender.com/cart/add/${product?.id}`,
+          `https://buynest-backend-latest-v2-latest.onrender.com/cart/add/${product?.id}`,
           {
             method: "POST",
             headers: {
@@ -66,7 +66,7 @@ function DispProd() {
       try {
         setFetching(true);
         const resp = await fetch(
-          `https://buynest-backend-latest-latest.onrender.com/api/product/${productID}`,
+          `https://buynest-backend-latest-v2-latest.onrender.com/api/product/${productID}`,
           {
             method: "GET",
             headers: {
@@ -97,7 +97,7 @@ function DispProd() {
     const fetchImg = async () => {
       try {
         const resp = await fetch(
-          `https://buynest-backend-latest-latest.onrender.com/api/product/${productID}/image`,
+          `https://buynest-backend-latest-v2-latest.onrender.com/api/product/${productID}/image`,
           {
             method: "GET",
             headers: {

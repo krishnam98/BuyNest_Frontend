@@ -39,7 +39,7 @@ function Header() {
     setListVisibility(e.target.value.length > 0);
     const fetchSearchItems = async () => {
       const resp = await fetch(
-        `https://buynest-backend-latest-latest.onrender.com/api/searchProduct/${e.target.value}`,
+        `https://buynest-backend-latest-v2-latest.onrender.com/api/searchProduct/${e.target.value}`,
         {
           method: "GET",
           headers: {

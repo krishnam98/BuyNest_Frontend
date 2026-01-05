@@ -18,7 +18,7 @@ function Orders() {
       try {
         setFetching(true);
         const resp = await fetch(
-          "https://buynest-backend-latest-latest.onrender.com/order/getOrders",
+          "https://buynest-backend-latest-v2-latest.onrender.com/order/getOrders",
           {
             method: "GET",
             headers: {

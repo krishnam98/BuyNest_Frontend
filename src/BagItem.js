@@ -32,7 +32,7 @@ const Bagitem = ({ id, title, quantity, price, rating, forReview }) => {
     const fetchImg = async () => {
       try {
         const resp = await fetch(
-          `https://buynest-backend-latest-latest.onrender.com/api/product/${id}/image`,
+          `https://buynest-backend-latest-v2-latest.onrender.com/api/product/${id}/image`,
           {
             method: "GET",
             headers: {

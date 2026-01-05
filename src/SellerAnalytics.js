@@ -52,14 +52,14 @@ const SellerAnalytics = () => {
         // Run both API calls in parallel
         const [productsResponse, ordersResponse] = await Promise.all([
           fetch(
-            "https://buynest-backend-latest-latest.onrender.com/api/getSellerProducts",
+            "https://buynest-backend-latest-v2-latest.onrender.com/api/getSellerProducts",
             {
               method: "GET",
               headers: { Authorization: `Bearer ${token}` },
             }
           ),
           fetch(
-            "https://buynest-backend-latest-latest.onrender.com/order/getSellerOrders",
+            "https://buynest-backend-latest-v2-latest.onrender.com/order/getSellerOrders",
             {
               method: "GET",
               headers: { Authorization: `Bearer ${token}` },

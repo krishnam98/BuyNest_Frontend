@@ -88,7 +88,7 @@ function AddProduct() {
       try {
         setFetching(true);
         const resp = await fetch(
-          "https://buynest-backend-latest-latest.onrender.com/api/addProduct",
+          "https://buynest-backend-latest-v2-latest.onrender.com/api/addProduct",
           {
             method: "POST",
             headers: {

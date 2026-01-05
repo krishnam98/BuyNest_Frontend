@@ -36,7 +36,7 @@ function Register() {
     const RegisterCall = async () => {
       setFetchingForReg(true);
       const resp = await fetch(
-        "https://buynest-backend-latest-latest.onrender.com/auth/register",
+        "https://buynest-backend-latest-v2-latest.onrender.com/auth/register",
         {
           method: "POST",
           headers: {
@@ -85,7 +85,7 @@ function Register() {
         setAvailable(false);
         setNotAvailable(false);
         const resp = await fetch(
-          `https://buynest-backend-latest-latest.onrender.com/auth/checkAvailUsername/${e.target.value}`
+          `https://buynest-backend-latest-v2-latest.onrender.com/auth/checkAvailUsername/${e.target.value}`
         );
         console.log(resp.status);
         setCheckingAvailability(false);

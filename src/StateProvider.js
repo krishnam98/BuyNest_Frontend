@@ -183,7 +183,7 @@ export const StateProvider = ({ children }) => {
     console.log("fetching");
     try {
       const resp = await fetch(
-        "https://buynest-backend-latest-latest.onrender.com/cart/getCartItems",
+        "https://buynest-backend-latest-v2-latest.onrender.com/cart/getCartItems",
         {
           method: "GET",
           headers: {
@@ -242,7 +242,7 @@ export const StateProvider = ({ children }) => {
 
     try {
       const resp = await fetch(
-        `https://buynest-backend-latest-latest.onrender.com/cart/add/${id}`,
+        `https://buynest-backend-latest-v2-latest.onrender.com/cart/add/${id}`,
         {
           method: "POST",
           headers: {
@@ -281,17 +281,20 @@ export const StateProvider = ({ children }) => {
 
     try {
       const resp = await fetch(
-        `https://buynest-backend-latest-latest.onrender.com/cart/delete/${id}`,
+        `https://buynest-backend-latest-v2-latest.onrender.com/cart/delete/${id}`,
         {
           method: "DELETE",
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
         }
       );
 
       if (resp.status === 401) {
         // Token expired or invalid
+
+        console.log(resp);
         console.log("Token expired. Redirecting to login...");
         localStorage.removeItem("token"); // Remove invalid token
         addItems(id, title, price, rating); // in case of error Undo changes in frontend

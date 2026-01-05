@@ -23,7 +23,7 @@ function Home() {
       try {
         setFetching(true);
         const resp = await fetch(
-          "https://buynest-backend-latest-latest.onrender.com/api/products",
+          "https://buynest-backend-latest-v2-latest.onrender.com/api/products",
           {
             method: "GET",
             headers: {
